@@ -1,2 +1,7 @@
-package com.petshop.petshop.service;public class TipoDePet {
+package com.petshop.petshop.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class TipoDePet {
 }
