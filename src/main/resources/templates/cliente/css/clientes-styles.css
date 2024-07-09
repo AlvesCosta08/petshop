@@ -55,24 +55,20 @@ h1 {
 
 .btn-success {
     background-color: var(--laranja);
-    border-color: var(--verde);
+    border-color: var(--laranja);
     transition: transform 0.3s ease-in-out;
 }
 
-.btn-success:hover {
-    background-color: darken(var(--verde), 10%);
-    transform: scale(1.05);
-}
-
-.btn-secondary {
-    background-color: var(--cinza-claro);
+.btn-secondary, .btn-info {
+    background-color: var(--azul-claro);
     border-color: var(--cinza-claro);
     transition: transform 0.3s ease-in-out;
 }
 
-.btn-secondary:hover {
-    background-color: darken(var(--cinza-claro), 10%);
+.btn:hover {
+    background-color: var(--verde);
     transform: scale(1.05);
+    border: none;
 }
 
 form {
