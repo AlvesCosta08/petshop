@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Clientes</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/clientes-styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Lista de Clientes</h1>
+        <a href="/clientes/form" class="btn btn-primary mb-3">Adicionar Cliente</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.nome}">Nome do Cliente</td>
+                    <td th:text="${cliente.email}">cliente@example.com</td>
+                    <td th:text="${cliente.telefone}">123-456-7890</td>
+                    <td>
+                        <a th:href="@{/clientes/{id}(id=${cliente.id})}" class="btn btn-info">Detalhes</a>
+                        <a th:href="@{/clientes/form/{id}(id=${cliente.id})}" class="btn btn-warning">Editar</a>
+                        <a th:href="@{/clientes/delete/{id}(id=${cliente.id})}" class="btn btn-danger">Deletar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="js/background.js"></script>
+</body>
+</html>

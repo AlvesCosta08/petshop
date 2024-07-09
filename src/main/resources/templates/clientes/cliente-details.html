@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Cliente</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/clientes-styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Detalhes do Cliente</h1>
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${cliente.nome}">Nome do Cliente</h5>
+                <p class="card-text"><strong>Email:</strong> <span th:text="${cliente.email}">cliente@example.com</span></p>
+                <p class="card-text"><strong>Telefone:</strong> <span th:text="${cliente.telefone}">123-456-7890</span></p>
+                <a href="/clientes" class="btn btn-primary">Voltar à lista</a>
+            </div>
+        </div>
+    </div>
+    <script src="js/background.js"></script>
+</body>
+</html>
