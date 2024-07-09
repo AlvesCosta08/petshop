@@ -1,0 +1,163 @@
+/* Paleta de cores */
+:root {
+    --azul-claro: #A2D5F2;
+    --verde: #81C784;
+    --laranja: #FFB74D;
+    --branco: #FFFFFF;
+    --cinza-claro: #E0E0E0;
+}
+
+/* Estilos gerais */
+body {
+    background-color: var(--cinza-claro);
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-size:cover;
+    background-repeat: no-repeat;
+    height: 100vh; 
+    margin: 0; 
+}
+
+@media (max-width: 768px) {
+    body {
+        background-position: bottom; 
+    }
+}
+@media (min-width: 1024px) {
+    body {
+        background-position: center; 
+    }
+}
+
+
+.container {
+    background-color: var(--azul-claro);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: var(--verde);
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.form-control {
+    border: 2px solid var(--cinza-claro);
+    transition: border-color 0.3s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: var(--verde);
+    box-shadow: 0 0 8px var(--verde);
+}
+
+.btn-success {
+    background-color: var(--laranja);
+    border-color: var(--verde);
+    transition: transform 0.3s ease-in-out;
+}
+
+.btn-success:hover {
+    background-color: darken(var(--verde), 10%);
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: var(--cinza-claro);
+    border-color: var(--cinza-claro);
+    transition: transform 0.3s ease-in-out;
+}
+
+.btn-secondary:hover {
+    background-color: darken(var(--cinza-claro), 10%);
+    transform: scale(1.05);
+}
+
+form {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+form:hover {
+    transform: rotateY(10deg);
+}
+
+#cli_form{
+    background-color: var(--branco);
+    float: left;
+    width: 90.0vw;
+    max-width: 700px;
+    height: fit-content;
+    opacity: 40%;
+    label, input, button, a{
+        font-size: 6.5vw;
+        max-width: 600px;
+        
+    }
+    @media (min-width: 600px) {
+        label, input, button, a {
+            font-size: 2.5em; /* Limita o tamanho da fonte em telas maiores */
+        }
+        h1 {
+            font-size: 4em;
+        }
+    }
+    @media (min-width: 1024px) {
+        label, input, button, a {
+            font-size: 18px; /* Travar o tamanho da fonte em 20px para telas maiores que 1024px */
+        }
+        h1 {
+            font-size: 40px;
+        }
+    }
+    
+    
+}
+
+
+/* Animações */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.container {
+    animation: slideIn 1s ease-out;
+}
+
+form {
+    animation: fadeIn 2s ease-in-out;
+}
+
+button {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--laranja);
+    transform: rotate(5deg);
+}
+
+#cli_form:hover{
+    opacity: 100%;
+}
+
+
