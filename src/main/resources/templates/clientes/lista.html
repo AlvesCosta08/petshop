@@ -20,14 +20,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="cliente : ${clientes}">
-                    <td th:text="${cliente.nome}">Nome do Cliente</td>
-                    <td th:text="${cliente.email}">cliente@example.com</td>
-                    <td th:text="${cliente.telefone}">123-456-7890</td>
+                <tr th:each="c : ${clientes}">
+                    <td th:text="${c.nome}">Nome do Cliente</td>
+                    <td th:text="${c.email}">cliente@example.com</td>
+                    <td th:text="${c.telefone}">123-456-7890</td>
                     <td>
-                        <a th:href="@{/clientes/{id}(id=${cliente.id})}" class="btn btn-info">Detalhes</a>
-                        <a th:href="@{/clientes/form/{id}(id=${cliente.id})}" class="btn btn-warning">Editar</a>
-                        <a th:href="@{/clientes/delete/{id}(id=${cliente.id})}" class="btn btn-danger">Deletar</a>
+                        <a th:href="@{/clientes/{id}(id=${c.id})}" class="btn btn-info">Detalhes</a>
+                        <a th:href="@{/clientes/form/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
+                        <a th:href="@{/clientes/delete/{id}(id=${c.id})}" class="btn btn-danger">Deletar</a>
                     </td>
                 </tr>
             </tbody>
