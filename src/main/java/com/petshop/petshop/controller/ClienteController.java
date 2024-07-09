@@ -54,15 +54,14 @@ public class ClienteController {
     @GetMapping("/editar/{id}")
     public String preEditar(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("cliente", service.getById(id));
-        return "cliente/cadastro"; // Nome da página Thymeleaf para edição
+        return ""; // Nome da página Thymeleaf para edição
     }
 
     // Método para processar o formulário de edição
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("cliente") Cliente cliente, RedirectAttributes att) {
+    public String editar(Cliente cliente) {
         service.update(cliente.getId(), cliente); // Atualiza o cliente usando o método update do serviço
-        att.addFlashAttribute("mensagem", "Cliente atualizado com sucesso."); // Adiciona uma mensagem para exibir na próxima página
-        return "redirect:/clientes/cadastrar"; // Redireciona para a página de cadastro após editar
+        return "redirect:/clientes/listar"; // Redireciona para a página de cadastro após editar
     }
 }
 
