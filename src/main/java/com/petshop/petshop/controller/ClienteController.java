@@ -5,6 +5,7 @@ import com.petshop.petshop.model.Cliente;
 import com.petshop.petshop.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,19 +20,25 @@ public class ClienteController {
 
     @GetMapping("/cadastrar")
     public String cadastrar(Cliente cliente) {
-        return "/cliente/cadastro";
+        return "cliente/cadastro";
+    }
+
+    @GetMapping("/cliente/cadastro")
+    public String showForm(Model model) {
+        model.addAttribute("cliente", new Cliente());
+        return "cliente/cadastro";
     }
 
     @GetMapping("/listar")
     public String listar(ModelMap model) {
         model.addAttribute("clientes", service.getAll());
-        return "/cliente/lista";
+        return "cliente/lista";
     }
 
     @PostMapping("/salvar")
     public String salvar(Cliente cliente, RedirectAttributes attr) {
         service.create(cliente);
-        attr.addFlashAttribute("success", "Departamento inserido com sucesso.");
-        return "redirect:/cliente/cadastrar";
+        attr.addFlashAttribute("success", "Cliente inserido com sucesso.");
+        return "redirect:/clientes/cadastrar";
     }
 }

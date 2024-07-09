@@ -8,7 +8,7 @@
 <body>
 <div class="container">
 	<h1 class="mt-5" th:text="${cliente.id == null} ? 'Novo Cliente' : 'Editar Cliente'">Formulário de Cliente</h1>
-	<form th:action="@{/cliente/salvar}" th:object="${cliente}" method="post" class="mt-3">
+	<form th:action="@{/clientes/salvar}" th:object="${cliente}" method="post" class="mt-3">
 		<div class="form-group">
 			<label for="nome">Nome</label>
 			<input type="text" id="nome" name="nome" class="form-control" th:field="*{nome}" placeholder="Nome do Cliente">
