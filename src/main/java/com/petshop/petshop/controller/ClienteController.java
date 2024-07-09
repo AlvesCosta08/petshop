@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -44,6 +46,23 @@ public class ClienteController {
     public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
         service.delete(id);
         attr.addFlashAttribute("success", "Cliente excluído com sucesso.");
+        return "redirect:/clientes/listar";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable("id") Long id, Model model) {
+        Optional<Cliente> cliente = service.getById(id);
+        model.addAttribute("cliente", cliente);
+        return "cliente/cadastro";
+    }
+
+    @PostMapping("/atualizar")
+    public String atualizar(@ModelAttribute Cliente cliente, BindingResult result, RedirectAttributes attr) {
+        if (result.hasErrors()) {
+            return "cliente/cadastro";
+        }
+        service.update(cliente);
+        attr.addFlashAttribute("success", "Cliente atualizado com sucesso.");
         return "redirect:/clientes/listar";
     }
 }
