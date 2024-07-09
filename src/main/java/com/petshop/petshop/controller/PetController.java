@@ -1,11 +1,16 @@
 package com.petshop.petshop.controller;
 
+import com.petshop.petshop.model.Cliente;
 import com.petshop.petshop.model.Pet;
+import com.petshop.petshop.service.ClienteService;
 import com.petshop.petshop.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,58 +20,63 @@ import java.util.Optional;
 public class PetController {
 
     @Autowired
-    private PetService petService;
+    private PetService service;
 
-    // Endpoint para listar todos os pets
-    @GetMapping("/")
-    public String getAllPets(Model model) {
-        List<Pet> pets = petService.getAll();
-        model.addAttribute("pets", pets);
-        return "pets-list"; // Nome do arquivo HTML Thymeleaf (pets-list.html)
-    }
+    @Autowired
+    private ClienteService clienteService;
 
-    // Endpoint para exibir detalhes de um pet específico
-    @GetMapping("/{id}")
-    public String getPetById(@PathVariable("id") Long id, Model model) {
-        Optional<Pet> pet = petService.getById(id);
-        pet.ifPresent(p -> model.addAttribute("pet", p));
-        return "pet-details"; // Nome do arquivo HTML Thymeleaf (pet-details.html)
-    }
-
-    // Endpoint para exibir o formulário de cadastro de pet
-    @GetMapping("/new")
-    public String showPetForm(Model model) {
+    // Página de cadastro de pet
+    @GetMapping("/cadastrar")
+    public String cadastrar(Model model) {
         model.addAttribute("pet", new Pet());
-        return "pet-form"; // Nome do arquivo HTML Thymeleaf (pet-form.html)
+        return "pet/cadastro";
     }
 
-    // Endpoint para processar o formulário de cadastro de pet
-    @PostMapping("/save")
-    public String savePet(@ModelAttribute("pet") Pet pet) {
-        petService.create(pet);
-        return "redirect:/pets/"; // Redireciona para a lista de pets após salvar
+    // Listagem de pet
+    @GetMapping("/listar")
+    public String listar(ModelMap model) {
+        model.addAttribute("pets", service.getAll());
+        return "pet/lista";
     }
 
-    // Endpoint para exibir o formulário de edição de pet
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable("id") Long id, Model model) {
-        Optional<Pet> pet = petService.getById(id);
-        pet.ifPresent(p -> model.addAttribute("pet", p));
-        return "pet-form"; // Nome do arquivo HTML Thymeleaf (pet-form.html) para edição
+    // Salvar pet
+    @PostMapping("/salvar")
+    public String salvar(@ModelAttribute Pet pet, BindingResult result, RedirectAttributes attr) {
+        if (result.hasErrors()) {
+            return "pet/cadastro";
+        }
+        service.create(pet);
+        attr.addFlashAttribute("success", "Pet inserido com sucesso.");
+        return "redirect:/pets/listar";
     }
 
-    // Endpoint para processar o formulário de edição de pet
-    @PostMapping("/update/{id}")
-    public String updatePet(@PathVariable("id") Long id, @ModelAttribute("pet") Pet petDetails) {
-        Optional<Pet> updatedPet = petService.update(id, petDetails);
-        // Lógica para tratamento de erro se pet não for encontrado
-        return "redirect:/pets/"; // Redireciona para a lista de pets após atualizar
+    // Excluir pet
+    @GetMapping("/excluir/{id}")
+    public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
+        service.delete(id);
+        attr.addFlashAttribute("success", "Pet excluído com sucesso.");
+        return "redirect:/pets/listar";
     }
 
-    // Endpoint para deletar um pet
-    @GetMapping("/delete/{id}")
-    public String deletePet(@PathVariable("id") Long id) {
-        petService.delete(id);
-        return "redirect:/pets/"; // Redireciona para a lista de pets após deletar
+    // Carregar dados do pet para edição
+    @GetMapping("/editar/{id}")
+    public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+        Pet pet = service.getById(id).orElseThrow(() -> new IllegalArgumentException("Pet não encontrado: " + id));
+        model.addAttribute("pet", pet);
+        // Adicione a lista de clientes ao modelo para edição
+        model.addAttribute("pet", service.getAll());
+        return "pet/cadastro"; // Use a mesma página Thymeleaf para edição
+    }
+
+    // Processar formulário de edição
+    @PostMapping("/editar")
+    public String editar(@ModelAttribute("pets") Pet pet) {
+        service.update(pet.getId(), pet);
+        return "redirect:/pets/listar"; // Redireciona para listagem após editar
+    }
+
+    @ModelAttribute("cliente")
+    public List<Cliente> getClientes(){
+        return  clienteService.getAll();
     }
 }

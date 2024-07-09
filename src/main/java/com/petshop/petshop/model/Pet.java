@@ -9,8 +9,6 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Pet {
 
     @Id
@@ -29,5 +27,17 @@ public class Pet {
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
+
+    public Pet() {
+    }
+
+    public Pet(Long id, String nome, String especie, String raca, Integer idade, Cliente cliente) {
+        this.id = id;
+        this.nome = nome;
+        this.especie = especie;
+        this.raca = raca;
+        this.idade = idade;
+        this.cliente = cliente;
+    }
 }
 

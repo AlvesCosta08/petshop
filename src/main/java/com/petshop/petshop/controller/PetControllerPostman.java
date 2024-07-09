@@ -1,6 +1,8 @@
 package com.petshop.petshop.controller;
 
+import com.petshop.petshop.model.Cliente;
 import com.petshop.petshop.model.Pet;
+import com.petshop.petshop.service.ClienteService;
 import com.petshop.petshop.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,9 @@ public class PetControllerPostman {
 
     @Autowired
     private PetService petService;
+
+    @Autowired
+    private ClienteService clienteService;
 
     @GetMapping
     public List<Pet> getAllPets() {
@@ -46,4 +51,6 @@ public class PetControllerPostman {
         petService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }

@@ -2,37 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Lista de Clientes</title>
+	<title>Lista de Pets</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-	<h1 class="mt-5">Lista de Clientes</h1>
-	<a class="nav-link"
-	   th:href="@{/clientes/cadastrar}"> <i class="oi oi-plus"></i> <span>Add Cliente</span>
-	</a>
+	<h1 class="mt-5">Lista de Pets</h1>
+	<a class="btn btn-primary mb-3" th:href="@{/pets/cadastrar}">Adicionar Pet</a>
 	<table class="table table-bordered">
 		<thead>
 		<tr>
 			<th>Nome</th>
-			<th>Email</th>
-			<th>Telefone</th>
+			<th>Espécie</th>
+			<th>Raça</th>
+			<th>Idade</th>
+			<th>Cliente</th>
 			<th>Ações</th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="c : ${clientes}">
-			<td th:text="${c.nome}"></td>
-			<td th:text="${c.email}"></td>
-			<td th:text="${c.telefone}"></td>
+		<tr th:each="pet : ${pets}">
+			<td th:text="${pet.nome}"></td>
+			<td th:text="${pet.especie}"></td>
+			<td th:text="${pet.raca}"></td>
+			<td th:text="${pet.idade}"></td>
+			<td th:text="${pet.cliente.nome}"></td>
 			<td>
-				<a th:href="@{/clientes/{id}(id=${c.id})}" class="btn btn-info">Detalhes</a>
-				<a th:href="@{/clientes/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
-				<a th:href="@{/clientes/excluir/{id}(id=${c.id})}" class="btn btn-danger">Deletar</a>
+				<a th:href="@{/pets/detalhes/{id}(id=${pet.id})}" class="btn btn-info">Detalhes</a>
+				<a th:href="@{/pets/editar/{id}(id=${pet.id})}" class="btn btn-warning">Editar</a>
+				<a th:href="@{/pets/excluir/{id}(id=${pet.id})}" class="btn btn-danger">Excluir</a>
 			</td>
 		</tr>
 		</tbody>
 	</table>
 </div>
+
+<!-- Bootstrap JS e outros scripts necessários -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js" integrity="sha384-Wf52VUmLhi7E4y4gyZb+3NL4kQg1kD5F/iF9TwB5ZBv7qZ3sibTPdW0wK4NcOq0e" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+IhAz/D4Hkp14ELGg1DZgTVoXNJjq4u1IHz" crossorigin="anonymous"></script>
 </body>
 </html>
