@@ -49,21 +49,20 @@ public class ClienteController {
         return "redirect:/clientes/listar";
     }
 
+
+    // Método para carregar os dados do cliente para edição
     @GetMapping("/editar/{id}")
-    public String editar(@PathVariable("id") Long id, Model model) {
-        Optional<Cliente> cliente = service.getById(id);
-        model.addAttribute("cliente", cliente);
-        return "cliente/cadastro";
+    public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("cliente", service.getById(id));
+        return "cliente/cadastro"; // Nome da página Thymeleaf para edição
     }
 
-    @PostMapping("/atualizar")
-    public String atualizar(@ModelAttribute Cliente cliente, BindingResult result, RedirectAttributes attr) {
-        if (result.hasErrors()) {
-            return "cliente/cadastro";
-        }
-        service.update(cliente);
-        attr.addFlashAttribute("success", "Cliente atualizado com sucesso.");
-        return "redirect:/clientes/listar";
+    // Método para processar o formulário de edição
+    @PostMapping("/editar")
+    public String editar(@ModelAttribute("cliente") Cliente cliente, RedirectAttributes att) {
+        service.update(cliente.getId(), cliente); // Atualiza o cliente usando o método update do serviço
+        att.addFlashAttribute("mensagem", "Cliente atualizado com sucesso."); // Adiciona uma mensagem para exibir na próxima página
+        return "redirect:/clientes/cadastrar"; // Redireciona para a página de cadastro após editar
     }
 }
 
