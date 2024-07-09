@@ -20,7 +20,7 @@ public class PetController {
     // Endpoint para listar todos os pets
     @GetMapping("/")
     public String getAllPets(Model model) {
-        List<Pet> pets = petService.getAllPets();
+        List<Pet> pets = petService.getAll();
         model.addAttribute("pets", pets);
         return "pets-list"; // Nome do arquivo HTML Thymeleaf (pets-list.html)
     }
@@ -28,7 +28,7 @@ public class PetController {
     // Endpoint para exibir detalhes de um pet específico
     @GetMapping("/{id}")
     public String getPetById(@PathVariable("id") Long id, Model model) {
-        Optional<Pet> pet = petService.getPetById(id);
+        Optional<Pet> pet = petService.getById(id);
         pet.ifPresent(p -> model.addAttribute("pet", p));
         return "pet-details"; // Nome do arquivo HTML Thymeleaf (pet-details.html)
     }
@@ -43,14 +43,14 @@ public class PetController {
     // Endpoint para processar o formulário de cadastro de pet
     @PostMapping("/save")
     public String savePet(@ModelAttribute("pet") Pet pet) {
-        petService.savePet(pet);
+        petService.create(pet);
         return "redirect:/pets/"; // Redireciona para a lista de pets após salvar
     }
 
     // Endpoint para exibir o formulário de edição de pet
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
-        Optional<Pet> pet = petService.getPetById(id);
+        Optional<Pet> pet = petService.getById(id);
         pet.ifPresent(p -> model.addAttribute("pet", p));
         return "pet-form"; // Nome do arquivo HTML Thymeleaf (pet-form.html) para edição
     }
@@ -58,7 +58,7 @@ public class PetController {
     // Endpoint para processar o formulário de edição de pet
     @PostMapping("/update/{id}")
     public String updatePet(@PathVariable("id") Long id, @ModelAttribute("pet") Pet petDetails) {
-        Optional<Pet> updatedPet = petService.updatePet(id, petDetails);
+        Optional<Pet> updatedPet = petService.update(id, petDetails);
         // Lógica para tratamento de erro se pet não for encontrado
         return "redirect:/pets/"; // Redireciona para a lista de pets após atualizar
     }
@@ -66,7 +66,7 @@ public class PetController {
     // Endpoint para deletar um pet
     @GetMapping("/delete/{id}")
     public String deletePet(@PathVariable("id") Long id) {
-        petService.deletePet(id);
+        petService.delete(id);
         return "redirect:/pets/"; // Redireciona para a lista de pets após deletar
     }
 }
