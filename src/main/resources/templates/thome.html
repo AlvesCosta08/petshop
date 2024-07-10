@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>Petshop - Bem-vindo!</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header class="bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">Petshop</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link active" th:href="@{/}">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" th:href="@{/dashboard}">Dashboard</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<section class="hero">
+	<div class="hero-content text-center">
+		<h1>Bem-vindo ao Petshop!</h1>
+		<p>Sua loja favorita para cuidar dos seus pets.</p>
+		<a class="btn btn-primary" href="/clientes/listar">Veja nossos clientes</a>
+	</div>
+</section>
+<section class="services py-5">
+	<div class="container">
+		<h2 class="text-center mb-4">Nossos Serviços</h2>
+		<div class="row" id="vetbanho">
+			<div class="col-md-6 mb-4">
+				<div class="card">
+					<img th:src="@{/images/dog09.jpg}" alt="Minha Imagem" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title">Consulta Veterinária</h5>
+						<p class="card-text">Agende uma consulta para o seu pet com nossos veterinários especializados.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 mb-4">
+				<div class="card">
+					<img th:src="@{/images/dog01.jpeg}" alt="Minha Imagem" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title">Banho e Tosa</h5>
+						<p class="card-text">Deixe seu pet limpo e cheiroso com nossos serviços de banho e tosa.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<footer class="bg-light py-3">
+	<p class="text-center m-0">&copy; 2024 Petshop. Todos os direitos reservados.</p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

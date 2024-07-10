@@ -2,33 +2,46 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Lista de Clientes</title>
+	<title>Lista</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<header class="header">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">Petshop</a>
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/agendamento/cadastrar}">Cadastrar</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/agendamento/listar}">Listar</a></li>
+			</ul>
+		</div>
+	</nav>
+</header>
 <div class="container">
-	<h1 class="mt-5">Lista de Clientes</h1>
+	<h1 class="mt-5">Agendamentos</h1>
 	<a class="nav-link"
-	   th:href="@{/clientes/cadastrar}"> <i class="oi oi-plus"></i> <span>Add Cliente</span>
+	   th:href="@{/agendamento/cadastrar}"> <i class="oi oi-plus"></i> <span>Add Agendamento</span>
 	</a>
 	<table class="table table-bordered">
 		<thead>
 		<tr>
-			<th>Nome</th>
-			<th>Email</th>
-			<th>Telefone</th>
+			<th>Data</th>
+			<th>Serviço</th>
+			<th>Pet</th>
+			<th>Cliente</th>
 			<th>Ações</th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="c : ${clientes}">
-			<td th:text="${c.nome}"></td>
-			<td th:text="${c.email}"></td>
-			<td th:text="${c.telefone}"></td>
+		<tr th:each="c : ${agendamentos}">
+			<td th:text="${c.servico}"></td>
+			<td th:text="${c.pet}"></td>
+			<td th:text="${c.cliente}"></td>
 			<td>
-				<a th:href="@{/clientes/{id}(id=${c.id})}" class="btn btn-info">Detalhes</a>
-				<a th:href="@{/clientes/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
-				<a th:href="@{/clientes/excluir/{id}(id=${c.id})}" class="btn btn-danger">Deletar</a>
+				<a th:href="@{/agendamentos/{id}(id=${c.id})}" class="btn btn-info">Detalhes</a>
+				<a th:href="@{/agendamentos/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
+				<a th:href="@{/agendamentos/excluir/{id}(id=${c.id})}" class="btn btn-danger">Deletar</a>
 			</td>
 		</tr>
 		</tbody>

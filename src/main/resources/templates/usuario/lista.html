@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Lista de Clientes</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/estilo.css}">
+</head>
+<body>
+<header class="header">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">Petshop</a>
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/usuarios/cadastrar}">Cadastrar</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/usuarios/listar}">Listar</a></li>
+			</ul>
+		</div>
+	</nav>
+</header>
+<div class="container">
+	<h1 class="mt-5">Lista de Clientes</h1>
+	<a class="nav-link"
+	   th:href="@{/clientes/cadastrar}"> <i class="oi oi-plus"></i> <span>Add Cliente</span>
+	</a>
+	<table class="table table-bordered">
+		<thead>
+		<tr>
+			<th>Nome</th>
+			<th>Email</th>
+			<th>Ações</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="c : ${clientes}">
+			<td th:text="${c.nome}"></td>
+			<td th:text="${c.email}"></td>
+			<td>
+				<a th:href="@{/usuarios/{id}(id=${c.id})}" class="btn btn-info">Detalhes</a>
+				<a th:href="@{/usuarios/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
+				<a th:href="@{/usuarios/excluir/{id}(id=${c.id})}" class="btn btn-danger">Deletar</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>
