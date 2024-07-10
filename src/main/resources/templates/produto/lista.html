@@ -7,9 +7,9 @@
 </head>
 <body>
 <div class="container">
-	<h1 class="mt-5">Lista de Clientes</h1>
+	<h1 class="mt-5">Lista de Produtos</h1>
 	<a class="nav-link"
-	   th:href="@{/clientes/cadastrar}"> <i class="oi oi-plus"></i> <span>Add Cliente</span>
+	   th:href="@{/produtos/cadastrar}"> <i class="oi oi-plus"></i> <span>Add Cliente</span>
 	</a>
 	<table class="table table-bordered">
 		<thead>
@@ -21,14 +21,15 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="c : ${clientes}">
+		<tr th:each="c : ${produtos}">
 			<td th:text="${c.nome}"></td>
-			<td th:text="${c.email}"></td>
-			<td th:text="${c.telefone}"></td>
+			<td th:text="${c.dscricao}"></td>
+			<td th:text="${c.preco}"></td>
+			<td th:text="${c.quantidade}"></td>
 			<td>
-				<a th:href="@{/clientes/{id}(id=${c.id})}" class="btn btn-info">Detalhes</a>
-				<a th:href="@{/clientes/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
-				<a th:href="@{/clientes/excluir/{id}(id=${c.id})}" class="btn btn-danger">Deletar</a>
+				<a th:href="@{/produtos/{id}(id=${c.id})}" class="btn btn-info">Detalhes</a>
+				<a th:href="@{/produtos/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
+				<a th:href="@{/produtos/excluir/{id}(id=${c.id})}" class="btn btn-danger">Deletar</a>
 			</td>
 		</tr>
 		</tbody>
