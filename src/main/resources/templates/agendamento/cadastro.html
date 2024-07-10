@@ -2,8 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Cadastro</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <header class="header">
@@ -12,8 +14,8 @@
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
-				<li class="nav-item"><a class="nav-link" th:href="@{/agendamento/cadastrar}">Cadastrar</a></li>
-				<li class="nav-item"><a class="nav-link" th:href="@{/agendamento/listar}">Listar</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/agendamentos/cadastrar}">Cadastrar</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/agendamentos/listar}">Listar</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -49,7 +51,7 @@
 
 		<input type="hidden" id="id" th:field="*{id}">
 		<button type="submit" class="btn btn-success">Salvar</button>
-		<a href="/agendamentos" class="btn btn-secondary">Cancelar</a>
+		<a href="#" class="btn btn-secondary">Cancelar</a>
 		<a th:href="@{/dashboard}" class="btn btn-info">Voltar</a>
 	</form>
 </div>
