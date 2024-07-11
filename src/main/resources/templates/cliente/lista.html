@@ -2,51 +2,75 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Lista de Clientes</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/estilo.css}">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <header class="header">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#">Petshop</a>
-		<div class="collapse navbar-collapse">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/clientes/cadastrar}">Cadastrar</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/clientes/listar}">Listar</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
 			</ul>
 		</div>
 	</nav>
 </header>
-<div class="container">
+<div class="container-fluid">
 	<h1 class="mt-5">Lista de Clientes</h1>
-	<a class="nav-link"
-	   th:href="@{/clientes/cadastrar}"> <i class="oi oi-plus"></i> <span>Add Cliente</span>
+	<!-- Exibir mensagem de erro -->
+	<div th:if="${param.error == 'violacao-chave-estrangeira'}" class="alert alert-danger" role="alert">
+		A exclusão do cliente não pode ser realizada porque há pets associados a ele.
+	</div>
+	<a class="nav-link" th:href="@{/clientes/cadastrar}">
+		<i class="oi oi-plus"></i> <span>Add Cliente</span>
 	</a>
-	<table class="table table-bordered">
-		<thead>
-		<tr>
-			<th>Nome</th>
-			<th>Email</th>
-			<th>Telefone</th>
-			<th>Ações</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr th:each="c : ${clientes}">
-			<td th:text="${c.nome}"></td>
-			<td th:text="${c.email}"></td>
-			<td th:text="${c.telefone}"></td>
-			<td>
-				<a th:href="@{/clientes/{id}(id=${c.id})}" class="btn btn-info">Detalhes</a>
-				<a th:href="@{/clientes/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
-				<a th:href="@{/clientes/excluir/{id}(id=${c.id})}" class="btn btn-danger">Deletar</a>
-			</td>
-		</tr>
-		</tbody>
-	</table>
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Telefone</th>
+				<th>Ações</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="c : ${clientes}">
+				<td th:text="${c.nome}"></td>
+				<td th:text="${c.email}"></td>
+				<td th:text="${c.telefone}"></td>
+				<td>
+					<a th:href="@{/clientes/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
+					<a th:href="@{/clientes/excluir/{id}(id=${c.id})}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">Deletar</a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
-<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script th:inline="javascript">
+	/* Verifica se há um parâmetro de erro na URL */
+    var urlParams = new URLSearchParams(window.location.search);
+    var error = urlParams.get('error');
+
+    /* Se houver um erro de violação de chave estrangeira, exibe uma mensagem */
+    if (error === 'violacao-chave-estrangeira') {
+        alert('Erro ao excluir cliente: Este cliente possui dependências e não pode ser excluído.');
+    }
+</script>
+
 </body>
 </html>
+

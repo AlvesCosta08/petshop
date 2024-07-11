@@ -2,38 +2,72 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Lista de Clientes</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Lista</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
+	<style>
+		.navbar-brand {
+			font-size: 1.5rem; /* Tamanho da fonte ajustado */
+		}
+	</style>
 </head>
 <body>
-<div class="container">
-	<h1 class="mt-5">Lista de Produtos</h1>
-	<a class="nav-link"
-	   th:href="@{/produtos/cadastrar}"> <i class="oi oi-plus"></i> <span>Add Cliente</span>
+<header class="header">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">Petshop</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/produtos/cadastrar}">Cadastrar</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/produtos/listar}">Listar</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+			</ul>
+		</div>
+	</nav>
+</header>
+<div class="container-fluid mt-5">
+	<h1>Lista de Produtos</h1>
+	<a th:href="@{/produtos/cadastrar}" class="nav-link">
+		<i class="oi oi-plus"></i> <span>Add Produto</span>
 	</a>
-	<table class="table table-bordered">
-		<thead>
-		<tr>
-			<th>Nome</th>
-			<th>Email</th>
-			<th>Telefone</th>
-			<th>Ações</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr th:each="c : ${produtos}">
-			<td th:text="${c.nome}"></td>
-			<td th:text="${c.dscricao}"></td>
-			<td th:text="${c.preco}"></td>
-			<td th:text="${c.quantidade}"></td>
-			<td>
-				<a th:href="@{/produtos/{id}(id=${c.id})}" class="btn btn-info">Detalhes</a>
-				<a th:href="@{/produtos/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
-				<a th:href="@{/produtos/excluir/{id}(id=${c.id})}" class="btn btn-danger">Deletar</a>
-			</td>
-		</tr>
-		</tbody>
-	</table>
+	<div class="table-responsive"> <!-- Adicionando classe table-responsive -->
+		<table class="table table-bordered">
+			<thead>
+			<tr>
+				<th>Produto</th>
+				<th>Descrição</th>
+				<th>Preço</th>
+				<th>Quantidade</th>
+				<th>Ações</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="p : ${produto}">
+				<td th:text="${p.nome}"></td>
+				<td th:text="${p.descricao}"></td>
+				<td th:text="${p.preco}"></td>
+				<td th:text="${p.quantidade}"></td>
+				<td>
+
+					<a th:href="@{/produtos/editar/{id}(id=${p.id})}" class="btn btn-warning btn-sm mx-1">Editar</a>
+					<a th:href="@{/produtos/excluir/{id}(id=${p.id})}" class="btn btn-danger btn-sm">Deletar</a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
 </body>
 </html>
+
+

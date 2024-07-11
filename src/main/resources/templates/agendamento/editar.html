@@ -2,8 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Editar</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <header class="header">
@@ -12,19 +14,20 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/agendamento/cadastrar}">Cadastrar</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/agendamento/listar}">Listar</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/agendamentos/cadastrar}">Cadastrar</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/agendamentos/listar}">Listar</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
             </ul>
         </div>
     </nav>
 </header>
 <div class="container">
     <h1 class="mt-5">Editar Agendamento</h1>
-    <form th:action="@{/agendamentos/editar}" th:object="${agendamentos}" method="post" class="mt-3">
+    <form th:action="@{/agendamentos/editar}" th:object="${agendamento}" method="post" class="mt-3">
 
         <div class="form-group">
             <label for="dataHora">Data Agendamento</label>
-            <input type="date" id="dataHora" name="dataHora" class="form-control" th:field="*{dataHora}">
+            <input type="text" id="dataHora" name="dataHora" class="form-control" th:field="*{dataHora}">
         </div>
         <div class="form-group">
             <label for="servico">Serviço:</label>

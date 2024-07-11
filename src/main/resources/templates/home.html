@@ -4,31 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Petshop</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}">
 </head>
 <body>
-<!-- Navbar -->
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Petshop</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="#"><span class="oi oi-paw"></span> Petshop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#sobre">Sobre Nós</a></li>
-                <li class="nav-item"><a class="nav-link" href="#servicos">Serviços</a></li>
-                <li class="nav-item"><a class="nav-link" href="#produtos">Produtos</a></li>
-                <li class="nav-item"><a class="nav-link" href="#pesquisa">Pesquisa</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="#sobre"><span class="oi oi-info"></span> Sobre Nós</a></li>
+                <li class="nav-item"><a class="nav-link" href="#servicos"><span class="oi oi-briefcase"></span> Serviços</a></li>
+                <li class="nav-item"><a class="nav-link" href="#produtos"><span class="oi oi-box"></span> Produtos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#pesquisa"><span class="oi oi-magnifying-glass"></span> Pesquisa</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/login}"><span class="oi oi-account-login"></span> Login</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- Header -->
+
 <header class="bg-primary text-white text-center py-5">
     <div class="container">
         <h1>Bem-vindo ao nosso Petshop</h1>
@@ -39,7 +39,7 @@
 <!-- Sobre Nós -->
 <section id="sobre" class="py-5">
     <div class="container">
-        <h2>Sobre Nós</h2>
+        <h2><span class="oi oi-info"></span> Sobre Nós</h2>
         <p>Informações sobre o petshop.</p>
     </div>
 </section>
@@ -47,27 +47,86 @@
 <!-- Serviços -->
 <section id="servicos" class="py-5 bg-light">
     <div class="container">
-        <h2>Serviços</h2>
-        <p>Serviços oferecidos pelo petshop.</p>
+        <h2><span class="oi oi-briefcase"></span> Serviços</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Banho e Tosa</h5>
+                        <p class="card-text">Serviço completo de banho e tosa.</p>
+                        <a href="#" class="btn btn-primary">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Vacinação</h5>
+                        <p class="card-text">Vacinas para proteger a saúde do seu pet.</p>
+                        <a href="#" class="btn btn-primary">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Consulta Veterinária</h5>
+                        <p class="card-text">Consultas com veterinários experientes.</p>
+                        <a href="#" class="btn btn-primary">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- Produtos -->
 <section id="produtos" class="py-5">
     <div class="container">
-        <h2>Produtos</h2>
-        <p>Produtos disponíveis no petshop.</p>
+        <h2><span class="oi oi-box"></span> Produtos</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Produto 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Ração Premium</h5>
+                        <p class="card-text">Ração de alta qualidade para seu pet.</p>
+                        <a href="#" class="btn btn-primary">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Produto 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Brinquedos</h5>
+                        <p class="card-text">Diversos brinquedos para seu pet.</p>
+                        <a href="#" class="btn btn-primary">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Produto 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Camas Confortáveis</h5>
+                        <p class="card-text">Camas confortáveis para um sono tranquilo.</p>
+                        <a href="#" class="btn btn-primary">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- Pesquisa -->
 <section id="pesquisa" class="py-5 bg-light">
     <div class="container">
-        <h2>Pesquisa</h2>
+        <h2><span class="oi oi-magnifying-glass"></span> Pesquisa</h2>
         <form>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Pesquisar produtos e serviços" aria-label="Pesquisar produtos e serviços" aria-describedby="button-addon2">
-                <button class="btn btn-primary" type="button" id="button-addon2">Pesquisar</button>
+                <button class="btn btn-primary" type="button" id="button-addon2"><span class="oi oi-magnifying-glass"></span> Pesquisar</button>
             </div>
         </form>
     </div>
@@ -81,7 +140,9 @@
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="../js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" ></script>
 </body>
 </html>
+
+
+

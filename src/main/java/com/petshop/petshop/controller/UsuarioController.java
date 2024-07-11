@@ -27,7 +27,6 @@ public class UsuarioController {
         return "usuario/cadastro";
     }
 
-
     // Listagem de usuarios
     @GetMapping("/listar")
     public String listar(ModelMap model) {
@@ -42,7 +41,7 @@ public class UsuarioController {
             return "usuario/cadastro";
         }
         service.create(usuario);
-        attr.addFlashAttribute("success", "Usuários inserido com sucesso.");
+        attr.addFlashAttribute("success", "Usuário inserido com sucesso.");
         return "redirect:/usuarios/listar";
     }
 
@@ -54,19 +53,19 @@ public class UsuarioController {
         return "redirect:/usuarios/listar";
     }
 
-
     // Carregar dados do usuario para edição
     @GetMapping("/editar/{id}")
     public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-        Usuario usuario = service.getById(id).orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado: " + id));
+        Usuario usuario = service.getById(id).orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado: " + id));
         model.addAttribute("usuario", usuario);
         return "usuario/editar"; // Nome da página Thymeleaf para edição
     }
 
     // Processar formulário de edição
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("cliente") Usuario usuario) {
+    public String editar(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes attr) {
         service.update(usuario.getId(), usuario);
+        attr.addFlashAttribute("success", "Usuário atualizado com sucesso.");
         return "redirect:/usuarios/listar"; // Redireciona para listagem após editar
     }
 }
