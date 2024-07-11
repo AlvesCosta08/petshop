@@ -2,37 +2,58 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Lista de Clientes</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Lista de Agendamentos</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-	<h1 class="mt-5">Lista de Clientes</h1>
-	<a class="nav-link"
-	   th:href="@{/clientes/cadastrar}"> <i class="oi oi-plus"></i> <span>Add Cliente</span>
-	</a>
-	<table class="table table-bordered">
+<header class="header">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">Petshop</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/agendamentos/cadastrar}">Cadastrar</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/agendamentos/listar}">Listar</a></li>
+			</ul>
+		</div>
+	</nav>
+</header>
+<div class="container-fluid mt-4">
+	<a class="nav-link" th:href="@{/agendamentos/cadastrar}"> <i class="oi oi-plus"></i> <span>Add Agendamento</span></a>
+	<table class="table table-bordered table-responsive-sm">
 		<thead>
 		<tr>
-			<th>Nome</th>
-			<th>Email</th>
-			<th>Telefone</th>
+			<th>ID</th>
+			<th>Data</th>
+			<th>Cliente</th>
+			<th>Pet</th>
+			<th>Serviço</th>
 			<th>Ações</th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="c : ${clientes}">
-			<td th:text="${c.nome}"></td>
-			<td th:text="${c.email}"></td>
-			<td th:text="${c.telefone}"></td>
+		<tr th:each="agendamentos : ${agendamento}">
+			<td th:text="${agendamentos.id}"></td>
+			<td th:text="${#dates.format(agendamentos.dataHora, 'dd/MM/yyyy')}"></td>
+			<td th:text="${agendamentos.pet.cliente.nome}"></td>
+			<td th:text="${agendamentos.pet.nome}"></td>
+			<td th:text="${agendamentos.servico.nome}"></td>
 			<td>
-				<a th:href="@{/clientes/{id}(id=${c.id})}" class="btn btn-info">Detalhes</a>
-				<a th:href="@{/clientes/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
-				<a th:href="@{/clientes/excluir/{id}(id=${c.id})}" class="btn btn-danger">Deletar</a>
+				<a th:href="@{/agendamentos/editar/{id}(id=${agendamentos.id})}" class="btn btn-warning btn-sm">Editar</a>
+				<a th:href="@{/agendamentos/excluir/{id}(id=${agendamentos.id})}" class="btn btn-danger btn-sm">Deletar</a>
+				<li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
 			</td>
 		</tr>
 		</tbody>
 	</table>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

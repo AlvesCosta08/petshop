@@ -6,68 +6,57 @@
 	<title>Lista</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
-	<style>
-		.navbar-brand {
-			font-size: 1.5rem; /* Tamanho da fonte ajustado */
-		}
-	</style>
 </head>
 <body>
 <header class="header">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#">Petshop</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
-				<li class="nav-item"><a class="nav-link" th:href="@{/produtos/cadastrar}">Cadastrar</a></li>
-				<li class="nav-item"><a class="nav-link" th:href="@{/produtos/listar}">Listar</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/usuarios/cadastrar}">Cadastrar</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/usuarios/listar}">Listar</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
 			</ul>
 		</div>
 	</nav>
 </header>
-<div class="container-fluid mt-5">
-	<h1>Lista de Produtos</h1>
-	<a th:href="@{/produtos/cadastrar}" class="nav-link">
-		<i class="oi oi-plus"></i> <span>Add Produto</span>
+<div class="container-fluid">
+	<h1 class="mt-5">Lista de Usuários</h1>
+	<a class="nav-link" th:href="@{/usuarios/cadastrar}">
+		<i class="oi oi-plus"></i> <span>Add Usuário</span>
 	</a>
-	<div class="table-responsive"> <!-- Adicionando classe table-responsive -->
+	<div class="table-responsive">
 		<table class="table table-bordered">
 			<thead>
 			<tr>
-				<th>Produto</th>
-				<th>Descrição</th>
-				<th>Preço</th>
-				<th>Quantidade</th>
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Senha</th>
 				<th>Ações</th>
 			</tr>
 			</thead>
 			<tbody>
-			<tr th:each="p : ${produto}">
-				<td th:text="${p.nome}"></td>
-				<td th:text="${p.descricao}"></td>
-				<td th:text="${p.preco}"></td>
-				<td th:text="${p.quantidade}"></td>
+			<tr th:each="c : ${usuarios}">
+				<td th:text="${c.username}"></td>
+				<td th:text="${c.email}"></td>
+				<td th:text="${c.senha}"></td>
 				<td>
 
-					<a th:href="@{/produtos/editar/{id}(id=${p.id})}" class="btn btn-warning btn-sm mx-1">Editar</a>
-					<a th:href="@{/produtos/excluir/{id}(id=${p.id})}" class="btn btn-danger btn-sm">Deletar</a>
+					<a th:href="@{/usuarios/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
+					<a th:href="@{/usuarios/excluir/{id}(id=${c.id})}" class="btn btn-danger">Deletar</a>
 				</td>
 			</tr>
 			</tbody>
 		</table>
 	</div>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script type="text/javascript" th:src="@{/js/script.js}"></script>
-
 </body>
 </html>
-
-
