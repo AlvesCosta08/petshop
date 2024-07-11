@@ -46,7 +46,7 @@ public class AgendamentoController {
 
     @GetMapping("/listar")
     public String listar(ModelMap model) {
-        model.addAttribute("agendamento", service.getAll());
+        model.addAttribute("agendamentos", service.getAll());
         return "agendamento/lista";
     }
 
@@ -79,7 +79,7 @@ public class AgendamentoController {
 
 
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("cliente") Agendamento agendamento) {
+    public String editar(@ModelAttribute("agendamento") Agendamento agendamento) {
         service.update(agendamento.getId(), agendamento);
         return "redirect:/agendamentos/listar"; // Redireciona para listagem após editar
     }

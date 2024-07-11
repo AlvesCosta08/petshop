@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Lista</title>
+	<title>Lista de Clientes</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
 </head>
@@ -19,12 +19,17 @@
 				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/clientes/cadastrar}">Cadastrar</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/clientes/listar}">Listar</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
 			</ul>
 		</div>
 	</nav>
 </header>
 <div class="container-fluid">
 	<h1 class="mt-5">Lista de Clientes</h1>
+	<!-- Exibir mensagem de erro -->
+	<div th:if="${param.error == 'violacao-chave-estrangeira'}" class="alert alert-danger" role="alert">
+		A exclusão do cliente não pode ser realizada porque há pets associados a ele.
+	</div>
 	<a class="nav-link" th:href="@{/clientes/cadastrar}">
 		<i class="oi oi-plus"></i> <span>Add Cliente</span>
 	</a>
@@ -44,9 +49,8 @@
 				<td th:text="${c.email}"></td>
 				<td th:text="${c.telefone}"></td>
 				<td>
-					<a th:href="@{/clientes/{id}(id=${c.id})}" class="btn btn-info">Detalhes</a>
 					<a th:href="@{/clientes/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
-					<a th:href="@{/clientes/excluir/{id}(id=${c.id})}" class="btn btn-danger">Deletar</a>
+					<a th:href="@{/clientes/excluir/{id}(id=${c.id})}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">Deletar</a>
 				</td>
 			</tr>
 			</tbody>
@@ -56,6 +60,17 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script th:inline="javascript">
+	/* Verifica se há um parâmetro de erro na URL */
+    var urlParams = new URLSearchParams(window.location.search);
+    var error = urlParams.get('error');
+
+    /* Se houver um erro de violação de chave estrangeira, exibe uma mensagem */
+    if (error === 'violacao-chave-estrangeira') {
+        alert('Erro ao excluir cliente: Este cliente possui dependências e não pode ser excluído.');
+    }
+</script>
+
 </body>
 </html>
+

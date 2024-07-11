@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Lista</title>
+	<title>Lista de Agendamentos</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
 </head>
@@ -23,30 +23,30 @@
 		</div>
 	</nav>
 </header>
-<div class="container mt-4">
-	<a class="nav-link"
-	   th:href="@{/agendamentos/cadastrar}"> <i class="oi oi-plus"></i> <span>Add Agendamento</span>
-	</a>
+<div class="container-fluid mt-4">
+	<a class="nav-link" th:href="@{/agendamentos/cadastrar}"> <i class="oi oi-plus"></i> <span>Add Agendamento</span></a>
 	<table class="table table-bordered table-responsive-sm">
 		<thead>
 		<tr>
+			<th>ID</th>
 			<th>Data</th>
-			<th>Serviço</th>
-			<th>Pet</th>
 			<th>Cliente</th>
+			<th>Pet</th>
+			<th>Serviço</th>
 			<th>Ações</th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="c : ${agendamento}">
-			<td th:text="${c.data}"></td>
-			<td th:text="${c.servico}"></td>
-			<td th:text="${c.pet}"></td>
-			<td th:text="${c.cliente}"></td>
+		<tr th:each="agendamentos : ${agendamento}">
+			<td th:text="${agendamentos.id}"></td>
+			<td th:text="${#dates.format(agendamentos.dataHora, 'dd/MM/yyyy')}"></td>
+			<td th:text="${agendamentos.pet.cliente.nome}"></td>
+			<td th:text="${agendamentos.pet.nome}"></td>
+			<td th:text="${agendamentos.servico.nome}"></td>
 			<td>
-				<a th:href="@{/agendamentos/{id}(id=${c.id})}" class="btn btn-info btn-sm">Detalhes</a>
-				<a th:href="@{/agendamentos/editar/{id}(id=${c.id})}" class="btn btn-warning btn-sm">Editar</a>
-				<a th:href="@{/agendamentos/excluir/{id}(id=${c.id})}" class="btn btn-danger btn-sm">Deletar</a>
+				<a th:href="@{/agendamentos/editar/{id}(id=${agendamentos.id})}" class="btn btn-warning btn-sm">Editar</a>
+				<a th:href="@{/agendamentos/excluir/{id}(id=${agendamentos.id})}" class="btn btn-danger btn-sm">Deletar</a>
+				<li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
 			</td>
 		</tr>
 		</tbody>

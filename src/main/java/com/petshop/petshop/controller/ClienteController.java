@@ -4,6 +4,7 @@ package com.petshop.petshop.controller;
 import com.petshop.petshop.model.Cliente;
 import com.petshop.petshop.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -47,9 +48,13 @@ public class ClienteController {
     // Excluir cliente
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
-        service.delete(id);
-        attr.addFlashAttribute("success", "Cliente excluído com sucesso.");
-        return "redirect:/clientes/listar";
+        try {
+            service.delete(id);
+            attr.addFlashAttribute("success", "Cliente excluído com sucesso.");
+            return "redirect:/clientes/listar";
+        }catch (DataIntegrityViolationException e){
+            return "redirect:/clientes/listar?error=violacao-chave-estrangeira";
+        }
     }
 
 

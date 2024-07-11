@@ -58,19 +58,18 @@ public class PetController {
         return "redirect:/pets/listar";
     }
 
-    // Carregar dados do pet para edição
+
     @GetMapping("/editar/{id}")
-    public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+    public String preEditar(@PathVariable("id") Long id, Model model) {
         Pet pet = service.getById(id).orElseThrow(() -> new IllegalArgumentException("Pet não encontrado: " + id));
         model.addAttribute("pet", pet);
-        // Adicione a lista de clientes ao modelo para edição
         model.addAttribute("pet", service.getAll());
         return "pet/cadastro"; // Use a mesma página Thymeleaf para edição
     }
 
-    // Processar formulário de edição
+
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("pets") Pet pet) {
+    public String editar(@ModelAttribute("pet") Pet pet) {
         service.update(pet.getId(), pet);
         return "redirect:/pets/listar"; // Redireciona para listagem após editar
     }

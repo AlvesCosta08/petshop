@@ -19,6 +19,7 @@
                 <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/pets/cadastrar}">Cadastrar</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/pets/listar}">Listar</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
             </ul>
         </div>
     </nav>
@@ -46,7 +47,7 @@
                 <td th:text="${pet.idade}"></td>
                 <td th:text="${pet.cliente.nome}"></td>
                 <td>
-                    <a th:href="@{/pets/detalhes/{id}(id=${pet.id})}" class="btn btn-info">Detalhes</a>
+
                     <a th:href="@{/pets/editar/{id}(id=${pet.id})}" class="btn btn-warning">Editar</a>
                     <a th:href="@{/pets/excluir/{id}(id=${pet.id})}" class="btn btn-danger">Excluir</a>
                 </td>
