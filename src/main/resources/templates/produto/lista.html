@@ -42,6 +42,7 @@
 				<th>Descrição</th>
 				<th>Preço</th>
 				<th>Quantidade</th>
+				<th>Foto</th>
 				<th>Ações</th>
 			</tr>
 			</thead>
@@ -51,8 +52,8 @@
 				<td th:text="${p.descricao}"></td>
 				<td th:text="${p.preco}"></td>
 				<td th:text="${p.quantidade}"></td>
+				<td th:text="@{${p.foto}}"></td>
 				<td>
-
 					<a th:href="@{/produtos/editar/{id}(id=${p.id})}" class="btn btn-warning btn-sm mx-1">Editar</a>
 					<a th:href="@{/produtos/excluir/{id}(id=${p.id})}" class="btn btn-danger btn-sm">Deletar</a>
 				</td>
