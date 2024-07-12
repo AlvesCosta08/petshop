@@ -1,6 +1,9 @@
 package com.petshop.petshop.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +16,20 @@ public class Servico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "O nome não pode ser nulo")
+    @Size(min = 1, max = 100, message = "O nome deve ter entre 1 e 100 caracteres")
     @Column(nullable = false)
     private String nome;
+
+    @Size(max = 255, message = "A descrição deve ter no máximo 255 caracteres")
     private String descricao;
+
+    @NotNull(message = "O preço não pode ser nulo")
+    @Min(value = 0, message = "O preço deve ser no mínimo 0")
     private Double preco;
+
+    @NotNull(message = "A duração não pode ser nula")
+    @Size(min = 1, max = 50, message = "A duração deve ter entre 1 e 50 caracteres")
     private String duracao;
 
     public Servico() {

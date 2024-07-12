@@ -1,10 +1,9 @@
 package com.petshop.petshop.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -20,18 +19,22 @@ public class Agendamento {
 
     @Column(name = "data_hora", nullable = false ,columnDefinition="DATE")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @NotBlank(message = "Data é obrigatório")
     private LocalDateTime dataHora;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "servico_id", nullable = false)
+    @NotBlank(message = "Serviço é obrigatório")
     private Servico servico;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pet_id", nullable = false)
+    @NotBlank(message = "Pet é obrigatório")
     private Pet pet;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
+    @NotBlank(message = "Cliente é obrigatório")
     private Cliente cliente;
 
     public Long getId() {
