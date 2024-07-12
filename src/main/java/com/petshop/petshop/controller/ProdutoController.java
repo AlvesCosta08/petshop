@@ -1,5 +1,6 @@
 package com.petshop.petshop.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import com.petshop.petshop.model.Cliente;
@@ -27,6 +28,9 @@ public class ProdutoController {
 
     @Autowired
     private ProdutoService service;
+
+    @Value("${file.upload-dir}")
+    private String diretorioDeArmazenamento;
 
     // Página de cadastro de produto
     @GetMapping("/cadastrar")
@@ -80,25 +84,37 @@ public class ProdutoController {
         return "produto/editar"; // Nome da página Thymeleaf para edição
     }
 
-    // Processar formulário de edição
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("cliente") Produto produto) {
+    public String editar(@ModelAttribute Produto produto,
+                         BindingResult result,
+                         @RequestParam("file") MultipartFile file,
+                         RedirectAttributes attr) throws IOException {
+        if (result.hasErrors()) {
+            return "produto/editar";
+        }
+
+        if (!file.isEmpty()) {
+            String urlImagem = salvarArquivoNoSistemaDeArquivos(file); // Salva o arquivo e obtém a URL
+            produto.setFoto(urlImagem); // Define a URL da imagem no produto
+        }
+
         service.update(produto.getId(), produto);
-        return "redirect:/produtos/listar"; // Redireciona para listagem após editar
+
+        attr.addFlashAttribute("success", "Produto atualizado com sucesso.");
+        return "redirect:/produtos/listar";
     }
-
     private String salvarArquivoNoSistemaDeArquivos(MultipartFile file) throws IOException {
-        String diretorioDeArmazenamento = "src/main/resources/static/images/produtos/";
-
-        // Nome do arquivo original
+        // Obtemos o nome original do arquivo e o limpamos
         String nomeArquivo = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         if (nomeArquivo.isEmpty()) {
             throw new IllegalArgumentException("Nome do arquivo não pode estar vazio!");
         }
 
         try {
+            // Caminho relativo onde o arquivo será armazenado
+            Path diretorio = Paths.get("src/main/resources/static/images/produtos");
+
             // Verifica se o diretório existe, senão cria
-            Path diretorio = Paths.get(diretorioDeArmazenamento);
             if (!Files.exists(diretorio)) {
                 Files.createDirectories(diretorio);
             }
@@ -109,8 +125,8 @@ public class ProdutoController {
             // Salva o arquivo no sistema de arquivos
             Files.copy(file.getInputStream(), caminhoCompleto, StandardCopyOption.REPLACE_EXISTING);
 
-            // Retorna a URL do arquivo salvo (pode ser o caminho relativo ou completo)
-            return caminhoCompleto.toString();
+            // Retorna o caminho relativo do arquivo salvo
+            return "/images/produtos/" + nomeArquivo;
         } catch (IOException e) {
             throw new IOException("Falha ao salvar o arquivo " + nomeArquivo, e);
         }

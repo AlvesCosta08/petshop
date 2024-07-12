@@ -42,15 +42,15 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr th:each="s : ${servico}">
-				<td th:text="${s.nome}"></td>
-				<td th:text="${s.descricao}"></td>
-				<td th:text="${s.preco}"></td>
-				<td th:text="${s.duracao}"></td>
+			<tr th:each="servicos : ${servico}">
+				<td th:text="${servicos.nome}"></td>
+				<td th:text="${servicos.descricao}"></td>
+				<td th:text="${servicos.preco}"></td>
+				<td th:text="${servicos.duracao}"></td>
 				<td>
 
-					<a th:href="@{/servicos/editar/{id}(id=${s.id})}" class="btn btn-warning">Editar</a>
-					<a th:href="@{/servicos/excluir/{id}(id=${s.id})}" class="btn btn-danger">Excluir</a>
+					<a th:href="@{/servicos/editar/{id}(id=${servicos.id})}" class="btn btn-warning">Editar</a>
+					<a th:href="@{/servicos/excluir/{id}(id=${servicos.id})}" class="btn btn-danger">Excluir</a>
 				</td>
 			</tr>
 			</tbody>

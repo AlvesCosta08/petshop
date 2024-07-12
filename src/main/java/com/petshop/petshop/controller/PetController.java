@@ -35,7 +35,7 @@ public class PetController {
     // Listagem de pet
     @GetMapping("/listar")
     public String listar(ModelMap model) {
-        model.addAttribute("pets", service.getAll());
+        model.addAttribute("pet", service.getAll());
         return "pet/lista";
     }
 
@@ -60,11 +60,10 @@ public class PetController {
 
 
     @GetMapping("/editar/{id}")
-    public String preEditar(@PathVariable("id") Long id, Model model) {
-        Pet pet = service.getById(id).orElseThrow(() -> new IllegalArgumentException("Pet não encontrado: " + id));
+    public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+        Pet pet = service.getById(id).orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado: " + id));
         model.addAttribute("pet", pet);
-        model.addAttribute("pet", service.getAll());
-        return "pet/cadastro"; // Use a mesma página Thymeleaf para edição
+        return "pet/editar"; // Nome da página Thymeleaf para edição
     }
 
 
