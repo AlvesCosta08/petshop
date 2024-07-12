@@ -24,9 +24,10 @@
 <div class="container">
     <h1 class="mt-5">Editar Agendamento</h1>
     <form th:action="@{/agendamentos/editar}" th:object="${agendamento}" method="post" class="mt-3">
+
         <div class="form-group">
             <label for="dataHora">Data Agendamento</label>
-            <input  type="datetime-local" id="dataHora" name="dataHora" class="form-control" th:field="*{dataHora}">
+            <input type="text" id="dataHora" name="dataHora" class="form-control" th:field="*{dataHora}">
         </div>
         <div class="form-group">
             <label for="servico">Serviço:</label>
@@ -52,9 +53,8 @@
 
         <input type="hidden" id="id" th:field="*{id}">
         <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="#" class="btn btn-secondary">Cancelar</a>
+        <a href="/agendamentos" class="btn btn-secondary">Cancelar</a>
         <a th:href="@{/dashboard}" class="btn btn-info">Voltar</a>
-    </form>
 </div>
 </body>
 </html>

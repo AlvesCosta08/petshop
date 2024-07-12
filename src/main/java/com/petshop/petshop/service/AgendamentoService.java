@@ -14,9 +14,12 @@ public class AgendamentoService {
     @Autowired
     private AgendamentoRepository repository;
 
-    public List<Agendamento> getAll() {
-        return repository.findAll();
+
+
+    public List<Agendamento> findAllWithDetails() {
+            return repository.findAllWithDetails();
     }
+
 
     public Optional<Agendamento> getById(Long id) {
         return repository.findById(id);

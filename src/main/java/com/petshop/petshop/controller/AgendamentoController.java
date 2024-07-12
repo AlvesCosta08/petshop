@@ -46,7 +46,8 @@ public class AgendamentoController {
 
     @GetMapping("/listar")
     public String listar(ModelMap model) {
-        model.addAttribute("agendamentos", service.getAll());
+        List<Agendamento> agendamentos = service.findAllWithDetails();
+        model.addAttribute("agendamentos", agendamentos);
         return "agendamento/lista";
     }
 

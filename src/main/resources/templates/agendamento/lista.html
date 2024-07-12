@@ -19,6 +19,7 @@
 				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/agendamentos/cadastrar}">Cadastrar</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/agendamentos/listar}">Listar</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -37,16 +38,15 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="agendamentos : ${agendamento}">
-			<td th:text="${agendamentos.id}"></td>
-			<td th:text="${#dates.format(agendamentos.dataHora, 'dd/MM/yyyy')}"></td>
-			<td th:text="${agendamentos.pet.cliente.nome}"></td>
-			<td th:text="${agendamentos.pet.nome}"></td>
-			<td th:text="${agendamentos.servico.nome}"></td>
+		<tr th:each="agendamento : ${agendamentos}">
+			<td th:text="${agendamento.id}"></td>
+			<td th:text="${agendamento.dataHora}"></td>
+			<td th:text="${agendamento.cliente.nome}"></td>
+			<td th:text="${agendamento.pet.nome}"></td>
+			<td th:text="${agendamento.servico.nome}"></td>
 			<td>
-				<a th:href="@{/agendamentos/editar/{id}(id=${agendamentos.id})}" class="btn btn-warning btn-sm">Editar</a>
-				<a th:href="@{/agendamentos/excluir/{id}(id=${agendamentos.id})}" class="btn btn-danger btn-sm">Deletar</a>
-				<li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+				<a th:href="@{/agendamentos/editar/{id}(id=${agendamento.id})}" class="btn btn-warning btn-sm">Editar</a>
+				<a th:href="@{/agendamentos/excluir/{id}(id=${agendamento.id})}" class="btn btn-danger btn-sm">Deletar</a>
 			</td>
 		</tr>
 		</tbody>
