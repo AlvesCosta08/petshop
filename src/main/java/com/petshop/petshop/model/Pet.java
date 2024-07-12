@@ -1,6 +1,8 @@
 package com.petshop.petshop.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,13 +17,17 @@ public class Pet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Nome é obrigatório")
     @Column(nullable = false)
     private String nome;
 
+    @NotBlank(message = "Espécie é obrigatória")
     private String especie;
 
+    @NotBlank(message = "Raça é obrigatória")
     private String raca;
 
+    @Min(value = 0, message = "A idade deve ser maior ou igual a 0")
     private Integer idade;
 
     @ManyToOne

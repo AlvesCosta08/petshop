@@ -1,23 +1,33 @@
 package com.petshop.petshop.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-
 public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "O nome do produto é obrigatório.")
+    @Size(max = 100, message = "O nome do produto deve ter no máximo 100 caracteres.")
     @Column(nullable = false)
     private String nome;
+
+    @Size(max = 255, message = "A descrição do produto deve ter no máximo 255 caracteres.")
     private String descricao;
+
+    @NotNull(message = "O preço do produto é obrigatório.")
+    @Positive(message = "O preço do produto deve ser positivo.")
     private Double preco;
+
+    @NotNull(message = "A quantidade do produto é obrigatória.")
+    @Min(value = 0, message = "A quantidade do produto não pode ser negativa.")
     private Integer quantidade;
     private String foto; // Adicionado campo para armazenar o nome do arquivo
 

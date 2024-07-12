@@ -2,6 +2,9 @@ package com.petshop.petshop.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +20,12 @@ public class Usuario {
     private Long id;
 
     @Column(unique = true)
+    @NotBlank(message = "Informe um nome de Usário")
+    @Size(min = 3, max = 235, message = "O nome do Usuário deve ter entre {min} e {max} caracteres.")
     private String username;
 
     @Column(unique = true)
+    @Email(message = "O e-mail deve ser válido")
     private String email;
 
     private String senha;

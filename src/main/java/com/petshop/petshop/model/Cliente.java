@@ -2,6 +2,10 @@ package com.petshop.petshop.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +18,16 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @NotBlank(message = "Informe um cliente")
+    @Size(min = 3, max = 235, message = "O nome do Cliente deve ter entre {min} e {max} caracteres.")
+    @Column(nullable = false, unique = true, length = 235)
     private String nome;
 
+    @Email(message = "O e-mail deve ser válido")
     @Column(unique = true)
     private String email;
 
+    @NotBlank(message = "Informe um telefone")
     private String telefone;
 
     public Cliente() {
