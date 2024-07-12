@@ -24,6 +24,7 @@
 <div class="container">
 	<h1 class="mt-5">Agendamento</h1>
 	<form th:action="@{/agendamentos/salvar}" th:object="${agendamento}" method="post" class="mt-3">
+		<div th:replace = "fragments/validacao :: validacao"></div>
 		<div class="form-group">
 			<label for="dataHora">Data Agendamento</label>
 			<input  type="datetime-local" id="dataHora" name="dataHora" class="form-control" th:field="*{dataHora}">

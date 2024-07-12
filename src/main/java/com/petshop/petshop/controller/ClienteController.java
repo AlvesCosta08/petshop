@@ -3,6 +3,7 @@ package com.petshop.petshop.controller;
 
 import com.petshop.petshop.model.Cliente;
 import com.petshop.petshop.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,7 @@ public class ClienteController {
 
     // Salvar cliente
     @PostMapping("/salvar")
-    public String salvar(@ModelAttribute Cliente cliente, BindingResult result, RedirectAttributes attr) {
+    public String salvar(@Valid @ModelAttribute Cliente cliente, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
             return "cliente/cadastro";
         }
@@ -68,8 +69,13 @@ public class ClienteController {
 
     // Processar formulário de edição
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("cliente") Cliente cliente) {
+    public String editar(@ModelAttribute("cliente") Cliente cliente, BindingResult result, RedirectAttributes attr) {
+        if (result.hasErrors()) {
+            return "cliente/cadastro";
+        }
+
         service.update(cliente.getId(), cliente);
+        attr.addFlashAttribute("success","Registro atualizado com sucesso.");
         return "redirect:/clientes/listar"; // Redireciona para listagem após editar
     }
 }
