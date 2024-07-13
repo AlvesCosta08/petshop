@@ -25,9 +25,11 @@ public class Usuario {
     private String username;
 
     @Column(unique = true)
+    @NotBlank(message = "Informe o e-mail")
     @Email(message = "O e-mail deve ser válido")
     private String email;
 
+    @NotBlank(message = "Informe  a Senha")
     private String senha;
 
     public Usuario() {

@@ -11,3 +11,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+ function initializeImageUpload() {
+     $(document).ready(function() {
+         $('#productImage').click(function() {
+             $('#file').click();
+         });
+
+         $('#file').change(function(event) {
+             if (event.target.files && event.target.files[0]) {
+                 var reader = new FileReader();
+                 reader.onload = function(e) {
+                     $('#productImage').attr('src', e.target.result);
+                 }
+                 reader.readAsDataURL(event.target.files[0]);
+             }
+         });
+     });
+ }

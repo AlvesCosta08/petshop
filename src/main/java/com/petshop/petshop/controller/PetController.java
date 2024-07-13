@@ -4,6 +4,7 @@ import com.petshop.petshop.model.Cliente;
 import com.petshop.petshop.model.Pet;
 import com.petshop.petshop.service.ClienteService;
 import com.petshop.petshop.service.PetService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +42,7 @@ public class PetController {
 
     // Salvar pet
     @PostMapping("/salvar")
-    public String salvar(@ModelAttribute Pet pet, BindingResult result, RedirectAttributes attr) {
+    public String salvar(@Valid @ModelAttribute Pet pet, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
             return "pet/cadastro";
         }
@@ -68,8 +69,12 @@ public class PetController {
 
 
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("pet") Pet pet) {
+    public String editar(@Valid @ModelAttribute("pet") Pet pet,BindingResult result, RedirectAttributes attr) {
+        if (result.hasErrors()) {
+            return "pet/cadastro";
+        }
         service.update(pet.getId(), pet);
+        attr.addFlashAttribute("success", "Pet atualizado com sucesso.");
         return "redirect:/pets/listar"; // Redireciona para listagem após editar
     }
 

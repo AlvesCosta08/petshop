@@ -19,6 +19,7 @@ public class Produto {
     @Column(nullable = false)
     private String nome;
 
+    @NotBlank(message = "O nome do descrição é obrigatório.")
     @Size(max = 255, message = "A descrição do produto deve ter no máximo 255 caracteres.")
     private String descricao;
 

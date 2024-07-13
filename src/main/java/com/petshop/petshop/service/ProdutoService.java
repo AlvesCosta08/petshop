@@ -6,6 +6,8 @@ import com.petshop.petshop.model.Produto;
 import com.petshop.petshop.repository.ClienteRepository;
 import com.petshop.petshop.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +18,8 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository repository;
 
-    public List<Produto> getAll() {
-        return repository.findAll();
+    public Page<Produto> getAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Optional<Produto> getById(Long id) {
@@ -35,6 +37,9 @@ public class ProdutoService {
         produto.setId(id); // Garantindo que o ID seja preservado
         Produto updatedProduto = repository.save(produto);
         return Optional.of(updatedProduto );
+    }
+    public Page<Produto> findPage(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public void delete(Long id) {

@@ -24,6 +24,7 @@ public class Cliente {
     private String nome;
 
     @Email(message = "O e-mail deve ser válido")
+    @NotBlank(message = "Informe um e-mail")
     @Column(unique = true)
     private String email;
 

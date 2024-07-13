@@ -28,14 +28,17 @@
         <div class="form-group">
             <label for="username">Usuário</label>
             <input type="text" id="username" name="username" class="form-control" th:field="*{username}" placeholder="Nome de usuário">
+            <div class="alert alert-danger mt-3" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" class="form-control" th:field="*{email}" placeholder="cliente@example.com">
+            <div class="alert alert-danger mt-3" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
         </div>
         <div class="form-group">
             <label for="senha">Senha</label>
             <input type="text" id="senha" name="senha" class="form-control" th:field="*{senha}" placeholder="Senha">
+            <div class="alert alert-danger mt-3" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
         </div>
         <!-- Campo oculto para o ID -->
         <input type="hidden" id="id" th:field="*{id}">
