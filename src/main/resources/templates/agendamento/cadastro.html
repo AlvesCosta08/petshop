@@ -14,7 +14,7 @@
 		<a class="navbar-brand" href="#">Petshop</a>
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}"><i class="fa-solid fa-clipboard"></i>Home</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}"><i class="fa-solid fa-clipboard"></i> Dashboard</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/agendamentos/cadastrar}">Cadastrar</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/agendamentos/listar}">Listar</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
@@ -56,7 +56,7 @@
 		</div>
 		<input type="hidden" id="id" th:field="*{id}">
 		<button type="submit" class="btn btn-success">Salvar</button>
-		<a href="#" class="btn btn-secondary">Cancelar</a>
+		<a th:href="@{/dashboard}" class="btn btn-secondary">Cancelar</a>
 		<a th:href="@{/dashboard}" class="btn btn-info">Voltar</a>
 	</form>
 </div>

@@ -3,8 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Cadastrar</title>
+	<title>Cadastro</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
 <header class="header">
@@ -12,7 +14,7 @@
 		<a class="navbar-brand" href="#">Petshop</a>
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}"><i class="fa-solid fa-clipboard"></i> Dashboard</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/produtos/cadastrar}">Cadastrar</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/produtos/listar}">Listar</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
@@ -49,7 +51,7 @@
 		</div>
 		<input type="hidden" id="id" th:field="*{id}">
 		<button type="submit" class="btn btn-success">Salvar</button>
-		<a href="/produto" class="btn btn-secondary">Cancelar</a>
+		<a th:href="@{/dashboard}" class="btn btn-secondary">Cancelar</a>
 		<a th:href="@{/dashboard}" class="btn btn-info">Voltar</a>
 	</form>
 </div>

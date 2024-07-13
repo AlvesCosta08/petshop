@@ -17,7 +17,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}"><i class="fa-solid fa-clipboard"></i> Dashboard</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/produtos/cadastrar}">Cadastrar</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/produtos/listar}">Listar</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
@@ -60,8 +60,8 @@
             <input type="hidden" name="fotoOriginal" th:value="${produto.foto}">
         </div>
         <input type="hidden" id="id" th:field="*{id}">
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="/produto" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-success">Editar</button>
+        <a th:href="@{/dashboard}" class="btn btn-secondary">Cancelar</a>
         <a th:href="@{/dashboard}" class="btn btn-info">Voltar</a>
     </form>
 </div>
