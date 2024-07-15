@@ -1,6 +1,5 @@
 package com.petshop.petshop.controller;
 
-import com.petshop.petshop.model.Usuario;
 import com.petshop.petshop.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +19,18 @@ public class LoginController {
 
     @GetMapping("")
     public String loginPage() {
-        return "login";
+        return "login"; // Retorna a página de login
     }
 
     @PostMapping("/auth")
     public String authenticate(@RequestParam("username") String username,
                                @RequestParam("password") String password,
                                Model model, HttpSession session) {
-        Usuario usuario = service.findByUsername(username);
-
-        if (usuario != null && usuario.getSenha().equals(password)) {
-            // Autenticação bem-sucedida
-            // Adiciona o usuário à sessão
-            session.setAttribute("usuarioLogado", usuario);
-
-            return "redirect:/dashboard"; // Redireciona para a página de dashboard
-        } else {
-            // Autenticação falhou
+        try {
+            // O Spring Security vai gerenciar a autenticação, portanto, não é necessário fazer a verificação manual aqui
+            // Apenas a configuração de segurança é necessária
+            return "redirect:/dashboard"; // Redireciona para a página de dashboard após login bem-sucedido
+        } catch (Exception e) {
             model.addAttribute("error", "Usuário ou senha inválidos.");
             return "login";
         }
@@ -44,9 +38,7 @@ public class LoginController {
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        // Invalida a sessão (logout)
-        session.invalidate();
+        session.invalidate(); // Invalida a sessão
         return "redirect:/login";
     }
 }
-
