@@ -34,7 +34,7 @@ public class ProdutoService {
         if (!repository.existsById(id)) {
             return Optional.empty();
         }
-        produto.setId(id); // Garantindo que o ID seja preservado
+        produto.setId(id);
         Produto updatedProduto = repository.save(produto);
         return Optional.of(updatedProduto );
     }

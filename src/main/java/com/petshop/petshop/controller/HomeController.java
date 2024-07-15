@@ -1,26 +1,27 @@
 package com.petshop.petshop.controller;
 
 import com.petshop.petshop.model.Produto;
-import com.petshop.petshop.repository.HomeRepository;
 import com.petshop.petshop.service.ProdutoService;
-import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
 
     @Autowired
-    private HomeRepository service;
+    private ProdutoService service;
 
     @GetMapping("/")
-    public String home(Model model) {
-        List<Produto> produtos = service.findAll();
-        model.addAttribute("produtos", produtos);
+    public String home(Model model,
+                       @RequestParam(value = "page", defaultValue = "0") int page,
+                       @RequestParam(value = "size", defaultValue = "9") int size) {
+        Page<Produto> produtosPage = service.findPage(PageRequest.of(page, size));
+        model.addAttribute("produtosPage", produtosPage);
         return "home"; // ou o nome do seu template de homepage
     }
 }
