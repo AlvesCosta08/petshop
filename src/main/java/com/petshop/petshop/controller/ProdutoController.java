@@ -1,11 +1,12 @@
 package com.petshop.petshop.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import com.petshop.petshop.model.Cliente;
 import com.petshop.petshop.model.Produto;
-import com.petshop.petshop.service.ClienteService;
 import com.petshop.petshop.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ public class ProdutoController {
     @Autowired
     private ProdutoService service;
 
+
     @Value("${file.upload-dir}")
     private String diretorioDeArmazenamento;
 
@@ -40,15 +42,20 @@ public class ProdutoController {
     }
 
 
-    // Listagem de produto
+    // Listagem de produtos
     @GetMapping("/listar")
-    public String listar(ModelMap model) {
-        model.addAttribute("produto", service.getAll());
+    public String listar(
+            ModelMap model,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "9") int size) {
+        Page<Produto> produtosPage = service.findPage(PageRequest.of(page, size));
+        model.addAttribute("produtosPage", produtosPage);
         return "produto/lista";
     }
 
+
     @PostMapping("/salvar")
-    public String salvar(@ModelAttribute Produto produto,
+    public String salvar(@Valid @ModelAttribute Produto produto,
                          BindingResult result,
                          @RequestParam("file") MultipartFile file,
                          RedirectAttributes attr) throws IOException {
@@ -75,57 +82,51 @@ public class ProdutoController {
         return "redirect:/produtos/listar";
     }
 
-
-    // Carregar dados do cliente para edição
     @GetMapping("/editar/{id}")
     public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-        Produto produto = service.getById(id).orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado: " + id));
+        Produto produto = service.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado: " + id));
         model.addAttribute("produto", produto);
-        return "produto/editar"; // Nome da página Thymeleaf para edição
+        return "produto/editar";
     }
 
     @PostMapping("/editar")
-    public String editar(@ModelAttribute Produto produto,
+    public String editar(@Valid @ModelAttribute Produto produto,
                          BindingResult result,
                          @RequestParam("file") MultipartFile file,
+                         @RequestParam("fotoOriginal") String fotoOriginal,
                          RedirectAttributes attr) throws IOException {
         if (result.hasErrors()) {
             return "produto/editar";
         }
 
         if (!file.isEmpty()) {
-            String urlImagem = salvarArquivoNoSistemaDeArquivos(file); // Salva o arquivo e obtém a URL
-            produto.setFoto(urlImagem); // Define a URL da imagem no produto
+            String urlImagem = salvarArquivoNoSistemaDeArquivos(file);
+            produto.setFoto(urlImagem);
+        } else {
+            produto.setFoto(fotoOriginal);
         }
 
         service.update(produto.getId(), produto);
-
-        attr.addFlashAttribute("success", "Produto atualizado com sucesso.");
+        attr.addFlashAttribute("success", "Produto editado com sucesso.");
         return "redirect:/produtos/listar";
     }
+
     private String salvarArquivoNoSistemaDeArquivos(MultipartFile file) throws IOException {
-        // Obtemos o nome original do arquivo e o limpamos
         String nomeArquivo = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         if (nomeArquivo.isEmpty()) {
             throw new IllegalArgumentException("Nome do arquivo não pode estar vazio!");
         }
 
         try {
-            // Caminho relativo onde o arquivo será armazenado
-            Path diretorio = Paths.get("src/main/resources/static/images/produtos");
-
-            // Verifica se o diretório existe, senão cria
+            Path diretorio = Paths.get(diretorioDeArmazenamento);
             if (!Files.exists(diretorio)) {
                 Files.createDirectories(diretorio);
             }
 
-            // Caminho completo onde o arquivo será armazenado
             Path caminhoCompleto = diretorio.resolve(nomeArquivo);
-
-            // Salva o arquivo no sistema de arquivos
             Files.copy(file.getInputStream(), caminhoCompleto, StandardCopyOption.REPLACE_EXISTING);
 
-            // Retorna o caminho relativo do arquivo salvo
             return "/images/produtos/" + nomeArquivo;
         } catch (IOException e) {
             throw new IOException("Falha ao salvar o arquivo " + nomeArquivo, e);

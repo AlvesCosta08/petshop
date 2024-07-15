@@ -16,7 +16,7 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Home</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/dashboard}"><i class="fa-solid fa-clipboard"></i> Dashboard</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/clientes/cadastrar}">Cadastrar</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/clientes/listar}">Listar</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
@@ -33,7 +33,23 @@
 	<a class="nav-link" th:href="@{/clientes/cadastrar}">
 		<i class="oi oi-plus"></i> <span>Add Cliente</span>
 	</a>
-	<div class="table-responsive">
+
+	<div class="d-block d-md-none">
+		<!-- Exibição em lista para dispositivos móveis -->
+		<ul class="list-group">
+			<tr th:each="c : ${clientes}">
+				<li class="list-group-item">
+					<strong>Nome:</strong> <span th:text="${c.nome}"></span><br>
+					<strong>Email:</strong> <span th:text="${c.email}"></span><br>
+					<strong>Telefone:</strong> <span th:text="${c.telefone}"></span><br>
+					<a th:href="@{/clientes/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
+					<a th:href="@{/clientes/excluir/{id}(id=${c.id})}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">Deletar</a>
+				</li>
+			</tr>
+		</ul>
+	</div>
+
+	<div class="table-responsive d-none d-md-block">
 		<table class="table table-bordered">
 			<thead>
 			<tr>
@@ -60,17 +76,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script th:inline="javascript">
-	/* Verifica se há um parâmetro de erro na URL */
-    var urlParams = new URLSearchParams(window.location.search);
-    var error = urlParams.get('error');
-
-    /* Se houver um erro de violação de chave estrangeira, exibe uma mensagem */
-    if (error === 'violacao-chave-estrangeira') {
-        alert('Erro ao excluir cliente: Este cliente possui dependências e não pode ser excluído.');
-    }
-</script>
-
 </body>
 </html>
+
 

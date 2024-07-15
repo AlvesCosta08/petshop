@@ -2,6 +2,7 @@ package com.petshop.petshop.controller;
 
 import com.petshop.petshop.model.Servico;
 import com.petshop.petshop.service.ServicoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class ServicoController {
 
     // Método para salvar um novo serviço
     @PostMapping("/salvar")
-    public String salvar(@ModelAttribute Servico servico, BindingResult result, RedirectAttributes attr) {
+    public String salvar(@Valid @ModelAttribute Servico servico, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
             return "servico/cadastro";
         }
@@ -65,7 +66,7 @@ public class ServicoController {
 
     // Método para salvar as alterações do serviço editado
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("servico") Servico servico, BindingResult result, RedirectAttributes attr) {
+    public String editar(@Valid @ModelAttribute("servico") Servico servico, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
             return "servico/editar";
         }

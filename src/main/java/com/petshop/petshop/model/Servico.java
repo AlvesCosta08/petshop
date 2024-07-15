@@ -21,7 +21,8 @@ public class Servico {
     @Column(nullable = false)
     private String nome;
 
-    @Size(max = 255, message = "A descrição deve ter no máximo 255 caracteres")
+    @NotNull(message = "O descricao não pode ser nulo")
+    @Size(min = 1, max = 50, message = "A descricao deve ter entre 1 e 50 caracteres")
     private String descricao;
 
     @NotNull(message = "O preço não pode ser nulo")

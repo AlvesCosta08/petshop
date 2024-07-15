@@ -5,6 +5,7 @@ import com.petshop.petshop.model.Cliente;
 import com.petshop.petshop.model.Usuario;
 import com.petshop.petshop.service.ClienteService;
 import com.petshop.petshop.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +37,7 @@ public class UsuarioController {
 
     // Salvar usuario
     @PostMapping("/salvar")
-    public String salvar(@ModelAttribute Usuario usuario, BindingResult result, RedirectAttributes attr) {
+    public String salvar(@Valid @ModelAttribute Usuario usuario, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
             return "usuario/cadastro";
         }
@@ -63,7 +64,10 @@ public class UsuarioController {
 
     // Processar formulário de edição
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes attr) {
+    public String editar(@ModelAttribute("usuario") Usuario usuario,BindingResult result, RedirectAttributes attr) {
+        if (result.hasErrors()) {
+            return "usuario/cadastro";
+        }
         service.update(usuario.getId(), usuario);
         attr.addFlashAttribute("success", "Usuário atualizado com sucesso.");
         return "redirect:/usuarios/listar"; // Redireciona para listagem após editar

@@ -9,6 +9,7 @@ import com.petshop.petshop.service.AgendamentoService;
 import com.petshop.petshop.service.ClienteService;
 import com.petshop.petshop.service.PetService;
 import com.petshop.petshop.service.ServicoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,8 +53,11 @@ public class AgendamentoController {
     }
 
     @PostMapping("/salvar")
-    public String salvar(@ModelAttribute Agendamento agendamento, BindingResult result, RedirectAttributes attr) {
+    public String salvar(@Valid @ModelAttribute("agendamento") Agendamento agendamento, BindingResult result, RedirectAttributes attr,Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("cliente", clienteService.getAll());
+            model.addAttribute("pet", petService.getAll());
+            model.addAttribute("servico", servicoService.getAll());
             return "agendamento/cadastro";
         }
         service.create(agendamento);
@@ -74,15 +78,23 @@ public class AgendamentoController {
     @GetMapping("/editar/{id}")
     public String preEditar(@PathVariable("id") Long id, ModelMap model) {
         Agendamento agendamento = service.getById(id).orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado: " + id));
+
         model.addAttribute("agendamento", agendamento);
         return "agendamento/editar"; // Nome da página Thymeleaf para edição
     }
 
 
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("agendamento") Agendamento agendamento) {
+    public String editar(@Valid @ModelAttribute("agendamento") Agendamento agendamento, BindingResult result, RedirectAttributes attr, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("cliente", clienteService.getAll());
+            model.addAttribute("pet", petService.getAll());
+            model.addAttribute("servico", servicoService.getAll());
+            return "agendamento/cadastro";
+        }
         service.update(agendamento.getId(), agendamento);
-        return "redirect:/agendamentos/listar"; // Redireciona para listagem após editar
+        attr.addFlashAttribute("success", "Agendamento atualizado com sucesso.");
+        return "redirect:/agendamentos/listar";
     }
 
     @ModelAttribute("cliente")

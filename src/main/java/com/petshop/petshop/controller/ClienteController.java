@@ -69,13 +69,12 @@ public class ClienteController {
 
     // Processar formulário de edição
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("cliente") Cliente cliente, BindingResult result, RedirectAttributes attr) {
+    public String editar(@Valid @ModelAttribute("cliente") Cliente cliente,BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
             return "cliente/cadastro";
         }
-
+        attr.addFlashAttribute("success", "Cliente atualizado com sucesso.");
         service.update(cliente.getId(), cliente);
-        attr.addFlashAttribute("success","Registro atualizado com sucesso.");
         return "redirect:/clientes/listar"; // Redireciona para listagem após editar
     }
 }

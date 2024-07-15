@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Petshop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header_home.css}">
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#"><span class="oi oi-paw"></span> Petshop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,51 +30,51 @@
     </div>
 </nav>
 
-
-<header class="bg-primary text-white text-center py-5">
-    <div class="container">
+<header class="header-bg text-white text-center py-5">
+    <div class="container header-content">
         <h1>Bem-vindo ao nosso Petshop</h1>
         <p class="lead">Oferecemos o melhor para o seu pet</p>
     </div>
 </header>
 
 <!-- Sobre Nós -->
-<section id="sobre" class="py-5">
+<section id="sobre" class="py-5" style="background-color: #f0f8ff; font-family: 'Roboto', sans-serif;">
     <div class="container">
-        <h2><span class="oi oi-info"></span> Sobre Nós</h2>
-        <p>Informações sobre o petshop.</p>
+        <h2 class="text-center mb-4" style="color: #2c3e50;"><i class="fas fa-paw"></i> Bem-vindo ao Nosso Pet!</h2>
+        <p class="lead text-center" style="color: #34495e;">Nós somos apaixonados por animais e dedicados a oferecer o melhor cuidado e produtos para seus melhores amigos. Desde a nossa fundação em <strong>2024</strong>, temos trabalhado incansavelmente para criar um espaço onde pets e seus tutores se sintam acolhidos e bem-vindos.</p>
+        <!-- Outros conteúdos -->
     </div>
 </section>
 
 <!-- Serviços -->
-<section id="servicos" class="py-5 bg-light">
+<section id="servicos" class="py-5" style="background-color: #f5f5f5;">
     <div class="container">
-        <h2><span class="oi oi-briefcase"></span> Serviços</h2>
+        <h2 class="text-center" style="color: #34495e;"><span class="oi oi-briefcase"></span> Serviços</h2>
         <div class="row">
             <div class="col-md-4">
-                <div class="card mb-4">
+                <div class="card mb-4 shadow-sm" style="height: 100%; background-color: #1abc9c;">
                     <div class="card-body">
-                        <h5 class="card-title">Banho e Tosa</h5>
-                        <p class="card-text">Serviço completo de banho e tosa.</p>
-                        <a href="#" class="btn btn-primary">Saiba mais</a>
+                        <h5 class="card-title" style="color: #ffffff;">Banho e Tosa</h5>
+                        <p class="card-text" style="color: #ecf0f1;">Serviço completo de banho e tosa.</p>
+                        <button type="button" class="btn btn-light">Saiba mais</button>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card mb-4">
+                <div class="card mb-4 shadow-sm" style="height: 100%; background-color: #3498db;">
                     <div class="card-body">
-                        <h5 class="card-title">Vacinação</h5>
-                        <p class="card-text">Vacinas para proteger a saúde do seu pet.</p>
-                        <a href="#" class="btn btn-primary">Saiba mais</a>
+                        <h5 class="card-title" style="color: #ffffff;">Consulta Veterinária</h5>
+                        <p class="card-text" style="color: #ecf0f1;">Avaliação completa da saúde do seu pet.</p>
+                        <button type="button" class="btn btn-light">Saiba mais</button>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card mb-4">
+                <div class="card mb-4 shadow-sm" style="height: 100%; background-color: #e67e22;">
                     <div class="card-body">
-                        <h5 class="card-title">Consulta Veterinária</h5>
-                        <p class="card-text">Consultas com veterinários experientes.</p>
-                        <a href="#" class="btn btn-primary">Saiba mais</a>
+                        <h5 class="card-title" style="color: #ffffff;">Vacinação</h5>
+                        <p class="card-text" style="color: #ecf0f1;">Imunização adequada para a saúde do seu animal.</p>
+                        <button type="button" class="btn btn-light">Saiba mais</button>
                     </div>
                 </div>
             </div>
@@ -81,40 +83,40 @@
 </section>
 
 <!-- Produtos -->
-<section id="produtos" class="py-5">
+<section id="produtos" class="py-5" style="background-color: #f5f5f5;">
     <div class="container">
-        <h2><span class="oi oi-box"></span> Produtos</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img th:src="@{/images/produtos/racao_gato.jpg}" alt="Minha Imagem" class="card-img-top">
+        <h2 class="text-center" style="color: #34495e;"><span class="oi oi-box"></span> Produtos</h2>
+        <div class="row d-flex flex-nowrap overflow-auto">
+            <div class="col-md-4" th:each="produto : ${produtosPage.content}">
+                <div class="card mb-4 shadow-sm" style="background-color: #e67e22;">
+                    <img th:src="@{{foto}(foto=${produto.foto})}" alt="Imagem do Produto" class="card-img-top produto-img">
                     <div class="card-body">
-                        <h5 class="card-title">Ração Premium</h5>
-                        <p class="card-text">Ração de alta qualidade para seu pet.</p>
-                        <a href="#" class="btn btn-primary">Saiba mais</a>
+                        <h5 class="card-title" style="color: #ffffff;" th:text="${produto.nome}">Nome do Produto</h5>
+                        <p class="card-text" style="color: #ecf0f1;" th:text="${produto.descricao}">Descrição do Produto</p>
+                        <a href="#" class="btn btn-light">Saiba mais</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img th:src="@{/images/produtos/saco_racao.jpg}" alt="Minha Imagem" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Brinquedos</h5>
-                        <p class="card-text">Diversos brinquedos para seu pet.</p>
-                        <a href="#" class="btn btn-primary">Saiba mais</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img th:src="@{/images/produtos/vazilha.jpg}" alt="Minha Imagem" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Camas Confortáveis</h5>
-                        <p class="card-text">Camas confortáveis para um sono tranquilo.</p>
-                        <a href="#" class="btn btn-primary">Saiba mais</a>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <!-- Controles de Paginação -->
+        <div class="d-flex justify-content-center mt-4">
+            <nav aria-label="Navegação de produtos">
+                <ul class="pagination">
+                    <li class="page-item" th:class="${produtosPage.hasPrevious() ? '' : 'disabled'}">
+                        <a class="page-link" th:href="@{|/produtos?page=${produtosPage.number - 1}|}" aria-label="Página anterior">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, produtosPage.totalPages - 1)}" th:class="${produtosPage.number == i ? 'active' : ''}">
+                        <a class="page-link" th:href="@{|/produtos?page=${i}|}" th:text="${i + 1}"></a>
+                    </li>
+                    <li class="page-item" th:class="${produtosPage.hasNext() ? '' : 'disabled'}">
+                        <a class="page-link" th:href="@{|/produtos?page=${produtosPage.number + 1}|}" aria-label="Próxima página">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </section>
@@ -122,11 +124,11 @@
 <!-- Pesquisa -->
 <section id="pesquisa" class="py-5 bg-light">
     <div class="container">
-        <h2><span class="oi oi-magnifying-glass"></span> Pesquisa</h2>
+        <h2 class="text-center" style="color: #34495e;"><span class="oi oi-magnifying-glass"></span> Pesquisa</h2>
         <form>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Pesquisar produtos e serviços" aria-label="Pesquisar produtos e serviços" aria-describedby="button-addon2">
-                <button class="btn btn-primary" type="button" id="button-addon2"><span class="oi oi-magnifying-glass"></span> Pesquisar</button>
+                <input type="text" class="form-control" placeholder="Pesquisar produtos e serviços" aria-label="Pesquisar produtos e serviços">
+                <button class="btn btn-primary" type="button"><span class="oi oi-magnifying-glass"></span> Pesquisar</button>
             </div>
         </form>
     </div>
@@ -140,9 +142,11 @@
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
 
 
 
