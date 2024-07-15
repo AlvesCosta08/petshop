@@ -32,16 +32,17 @@
 
 <header class="header-bg text-white text-center py-5">
     <div class="container header-content">
-        <h1>Bem-vindo ao nosso Petshop</h1>
+        <h1 class="text-center mb-4" style="color: #ffffff;"><i class="fas fa-paw"></i>&nbsp; Bem-vindo ao Nosso Pet!</h1>
         <p class="lead">Oferecemos o melhor para o seu pet</p>
     </div>
 </header>
 
 <!-- Sobre Nós -->
-<section id="sobre" class="py-5" style="background-color: #f0f8ff; font-family: 'Roboto', sans-serif;">
+
+<section id="sobre" class="py-5" style="background-color: #3498db; font-family: 'Roboto', sans-serif;">
     <div class="container">
-        <h2 class="text-center mb-4" style="color: #2c3e50;"><i class="fas fa-paw"></i> Bem-vindo ao Nosso Pet!</h2>
-        <p class="lead text-center" style="color: #34495e;">Nós somos apaixonados por animais e dedicados a oferecer o melhor cuidado e produtos para seus melhores amigos. Desde a nossa fundação em <strong>2024</strong>, temos trabalhado incansavelmente para criar um espaço onde pets e seus tutores se sintam acolhidos e bem-vindos.</p>
+        <h2 class="text-center mb-4" style="color: #ffffff;"><i class="fas fa-info-circle"></i>&nbsp;Quem somos</h2>
+        <p class="lead text-center" style="color: #ffffff;">Nós somos apaixonados por animais e dedicados a oferecer o melhor cuidado e produtos para seus melhores amigos. Desde a nossa fundação em <strong>2024</strong>, temos trabalhado incansavelmente para criar um espaço onde pets e seus tutores se sintam acolhidos e bem-vindos.</p>
         <!-- Outros conteúdos -->
     </div>
 </section>
@@ -51,7 +52,7 @@
     <div class="container">
         <h2 class="text-center" style="color: #34495e;"><span class="oi oi-briefcase"></span> Serviços</h2>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 mt-3">
                 <div class="card mb-4 shadow-sm" style="height: 100%; background-color: #1abc9c;">
                     <div class="card-body">
                         <h5 class="card-title" style="color: #ffffff;">Banho e Tosa</h5>
@@ -60,8 +61,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm" style="height: 100%; background-color: #3498db;">
+            <div class="col-md-4 mt-3">
+                <div class="card mb-4 shadow-sm " style="height: 100%; background-color: #3498db;">
                     <div class="card-body">
                         <h5 class="card-title" style="color: #ffffff;">Consulta Veterinária</h5>
                         <p class="card-text" style="color: #ecf0f1;">Avaliação completa da saúde do seu pet.</p>
@@ -69,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4  mt-3">
                 <div class="card mb-4 shadow-sm" style="height: 100%; background-color: #e67e22;">
                     <div class="card-body">
                         <h5 class="card-title" style="color: #ffffff;">Vacinação</h5>
@@ -98,26 +99,7 @@
                 </div>
             </div>
         </div>
-        <!-- Controles de Paginação -->
-        <div class="d-flex justify-content-center mt-4">
-            <nav aria-label="Navegação de produtos">
-                <ul class="pagination">
-                    <li class="page-item" th:class="${produtosPage.hasPrevious() ? '' : 'disabled'}">
-                        <a class="page-link" th:href="@{|/produtos?page=${produtosPage.number - 1}|}" aria-label="Página anterior">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item" th:each="i : ${#numbers.sequence(0, produtosPage.totalPages - 1)}" th:class="${produtosPage.number == i ? 'active' : ''}">
-                        <a class="page-link" th:href="@{|/produtos?page=${i}|}" th:text="${i + 1}"></a>
-                    </li>
-                    <li class="page-item" th:class="${produtosPage.hasNext() ? '' : 'disabled'}">
-                        <a class="page-link" th:href="@{|/produtos?page=${produtosPage.number + 1}|}" aria-label="Próxima página">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+
     </div>
 </section>
 

@@ -41,6 +41,11 @@
 			<input type="text" id="senha" name="senha" class="form-control" th:field="*{senha}" placeholder="Senha">
 			<div class="alert alert-danger mt-3" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
 		</div>
+		<div class="form-group">
+			<label for="perfil">Perfil</label>
+			<input type="text" id="perfil" name="perfil" class="form-control" th:field="*{perfil}" placeholder="Perfil">
+			<div class="alert alert-danger mt-3" th:if="${#fields.hasErrors('perfil')}" th:errors="*{perfil}"></div>
+		</div>
 		<input type="hidden" id="id" th:field="*{id}">
 		<button type="submit" class="btn btn-success">Salvar</button>
 		<a th:href="@{/dashboard}" class="btn btn-secondary">Cancelar</a>
