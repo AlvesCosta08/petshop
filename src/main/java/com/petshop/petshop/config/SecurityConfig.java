@@ -21,7 +21,7 @@ public class SecurityConfig {
         http
                 // Configura as regras de autorização para diferentes URLs
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/logout", "/", "/resources", "/static", "/css/**", "/js/**", "/images/**").permitAll() // Permite acesso público a essas URLs
+                        .requestMatchers("/login", "/logout", "/","/satisfacao", "/resources", "/static", "/css/**", "/js/**", "/images/**").permitAll() // Permite acesso público a essas URLs
                         .anyRequest().authenticated() // Requer autenticação para todas as outras URLs
                 )
                 // Configura o formulário de login
