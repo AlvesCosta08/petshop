@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <title>Petshop Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
 </head>
 <body>
 <header class="header">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand"><h1>Dashboard</h1></a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand">
+
+            <h1 class="d-inline"><i class="fas fa-paw"></i></h1>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link"> </a></li>
-            </ul>
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">
                         <i class="fas fa-sign-out-alt"></i> Sair
@@ -31,20 +30,22 @@
     </nav>
 </header>
 <div class="container">
-    <h1 class="mt-5  text-center">Dashboard do Petshop</h1>
+    <h1 class="mt-5 text-center">Dashboard do Petshop</h1>
     <div class="row mt-4 d-flex justify-content-center">
         <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
                     <h5 class="card-title">Agendamentos</h5>
                     <a th:href="@{/agendamentos/cadastrar}" class="btn btn-primary">Cadastrar</a>
                     <a th:href="@{/agendamentos/listar}" class="btn btn-secondary">Listar</a>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row mt-4 d-flex justify-content-center">
         <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
                     <h5 class="card-title">Clientes</h5>
                     <a th:href="@{/clientes/cadastrar}" class="btn btn-primary">Cadastrar</a>
                     <a th:href="@{/clientes/listar}" class="btn btn-secondary">Listar</a>
@@ -52,27 +53,17 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Satisfação</h5>
-                    <a th:href="@{/satisfacao/listar}" class="btn btn-secondary">Listar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-4 d-flex justify-content-center">
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
                     <h5 class="card-title">Pets</h5>
                     <a th:href="@{/pets/cadastrar}" class="btn btn-primary">Cadastrar</a>
                     <a th:href="@{/pets/listar}" class="btn btn-secondary">Listar</a>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 mb-4 ">
-            <div class="card">
-                <div class="card-body">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
                     <h5 class="card-title">Produtos</h5>
                     <a th:href="@{/produtos/cadastrar}" class="btn btn-primary">Cadastrar</a>
                     <a th:href="@{/produtos/listar}" class="btn btn-secondary">Listar</a>
@@ -80,8 +71,8 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
                     <h5 class="card-title">Serviços</h5>
                     <a th:href="@{/servicos/cadastrar}" class="btn btn-primary">Cadastrar</a>
                     <a th:href="@{/servicos/listar}" class="btn btn-secondary">Listar</a>
@@ -95,4 +86,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+
+
 
