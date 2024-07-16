@@ -10,12 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DashboardController {
 
     @GetMapping("/dashboard")
-    public String dashboardPage(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-        if (usuario == null) {
-            return "redirect:/login"; // Redirecionar se não estiver logado
-        }
-        model.addAttribute("usuario", usuario);
-        return "dashboard"; // Retornar a view do dashboard
+    public String dashboardPage(){
+        return "dashboard";
     }
 }
