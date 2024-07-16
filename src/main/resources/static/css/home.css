@@ -1,28 +1,2 @@
-body {
-    font-family: Arial, sans-serif;
-}
 
-header {
-    background: url('../images/petshop.jpg') no-repeat center center;
-    background-size: cover;
-    height: 90vh;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
 
-header h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-}
-
-header p {
-    font-size: 1.25rem;
-}
-   .card-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
