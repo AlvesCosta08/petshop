@@ -69,7 +69,7 @@ public class PetController {
 
 
     @PostMapping("/editar")
-    public String editar(@Valid @ModelAttribute("pet") Pet pet,BindingResult result, RedirectAttributes attr) {
+    public String editar(@Valid @ModelAttribute("pets") Pet pet,BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
             return "pet/cadastro";
         }
