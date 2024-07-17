@@ -51,7 +51,7 @@ public class ServicoController {
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
         service.delete(id);
-        attr.addFlashAttribute("success", "Usuário excluído com sucesso.");
+        attr.addFlashAttribute("success", "Serviço excluído com sucesso.");
         return "redirect:/servicos/listar";
     }
 
