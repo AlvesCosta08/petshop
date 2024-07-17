@@ -27,6 +27,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Limpa o formulário
             form.reset();
+
+            // Limpa o localStorage após o envio (opcional)
+            // clearStorage();
         } else {
             alert('Por favor, selecione uma avaliação e insira seu e-mail.');
         }
@@ -90,9 +93,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Função para limpar o localStorage (opcional)
+    function clearStorage() {
+        localStorage.clear(); // Limpa todos os dados do localStorage
+    }
+
     // Inicializa o gráfico ao carregar a página
     updateChart();
 });
+
 
 
 
