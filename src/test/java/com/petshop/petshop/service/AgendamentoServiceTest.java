@@ -33,12 +33,12 @@ public class AgendamentoServiceTest {
         Agendamento agendamento1 = new Agendamento(); // Preencha com dados necessários
         Agendamento agendamento2 = new Agendamento(); // Preencha com dados necessários
 
-        when(agendamentoRepository.findAllWithDetails()).thenReturn(Arrays.asList(agendamento1, agendamento2));
+        when(agendamentoRepository.findAll()).thenReturn(Arrays.asList(agendamento1, agendamento2));
 
-        List<Agendamento> agendamentos = agendamentoService.findAllWithDetails();
+        List<Agendamento> agendamentos = agendamentoService.getAll();
 
         assertEquals(2, agendamentos.size());
-        verify(agendamentoRepository, times(1)).findAllWithDetails();
+        verify(agendamentoRepository, times(1)).findAll();
     }
 
     @Test

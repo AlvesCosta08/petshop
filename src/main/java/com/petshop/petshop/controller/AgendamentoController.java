@@ -46,11 +46,18 @@ public class AgendamentoController {
         return "agendamento/cadastro";
     }
 
-
+    @GetMapping("/listarPorNome")
+    public String listarAgendamentos(@RequestParam(required = false) String clienteNome, Model model) {
+        List<Agendamento> agendamentosPorNome;
+        agendamentosPorNome = service.findAllWithDetails(clienteNome);
+        model.addAttribute("agendamentos", agendamentosPorNome);
+        model.addAttribute("clienteNome", clienteNome); // Adiciona o nome do cliente ao modelo
+        return "agendamento/lista_nome";
+    }
 
     @GetMapping("/listar")
     public String listar(ModelMap model) {
-        List<Agendamento> agendamentos = service.findAllWithDetails();
+        List<Agendamento> agendamentos = service.getAll();
         model.addAttribute("agendamentos", agendamentos);
         return "agendamento/lista";
     }

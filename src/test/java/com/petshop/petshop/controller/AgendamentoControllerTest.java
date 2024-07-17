@@ -63,7 +63,7 @@ public class AgendamentoControllerTest {
 
     @Test
     public void testListar() throws Exception {
-        when(service.findAllWithDetails()).thenReturn(new ArrayList<>());
+        when(service.getAll()).thenReturn(new ArrayList<>());
 
         mockMvc.perform(get("/agendamentos/listar"))
                 .andExpect(status().isOk())

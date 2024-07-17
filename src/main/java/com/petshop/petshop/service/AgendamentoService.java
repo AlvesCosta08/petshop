@@ -17,18 +17,16 @@ public class AgendamentoService {
     @Autowired
     private AgendamentoRepository repository;
 
-
-    public List<Agendamento> findAllWithDetails() {
-        return repository.findAllWithDetails();
-    }
-
-
     public Optional<Agendamento> getById(Long id) {
         return repository.findById(id);
     }
 
     public Agendamento create(Agendamento agendamento) {
         return repository.save(agendamento);
+    }
+
+    public List<Agendamento> getAll(){
+        return  repository.findAll();
     }
 
     public Optional<Agendamento> update(Long id, Agendamento agendamento) {
@@ -54,5 +52,9 @@ public class AgendamentoService {
         }
 
         return contagemDias;
+    }
+
+    public List<Agendamento> findAllWithDetails(String clienteNome) {
+        return repository.findByClienteNomeContaining(clienteNome);
     }
 }
