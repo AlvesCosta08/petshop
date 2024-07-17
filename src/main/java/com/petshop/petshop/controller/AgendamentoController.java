@@ -18,7 +18,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/agendamentos")
@@ -96,7 +99,12 @@ public class AgendamentoController {
         attr.addFlashAttribute("success", "Agendamento atualizado com sucesso.");
         return "redirect:/agendamentos/listar";
     }
-
+    @GetMapping("/horariosMaisAgendados")
+    public String listarHorariosMaisAgendados(Model model) {
+        Map<LocalDate, Long> contagemHorarios =service.contarHorariosAgendados();
+        model.addAttribute("horarios", contagemHorarios);
+        return "agendamento/horarios";
+    }
     @ModelAttribute("cliente")
     public List<Cliente> getClientes(){
         return  clienteService.getAll();

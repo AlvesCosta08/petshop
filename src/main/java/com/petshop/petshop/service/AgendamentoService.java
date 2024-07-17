@@ -6,7 +6,10 @@ import com.petshop.petshop.repository.AgendamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -15,9 +18,8 @@ public class AgendamentoService {
     private AgendamentoRepository repository;
 
 
-
     public List<Agendamento> findAllWithDetails() {
-            return repository.findAllWithDetails();
+        return repository.findAllWithDetails();
     }
 
 
@@ -40,5 +42,17 @@ public class AgendamentoService {
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public Map<LocalDate, Long> contarHorariosAgendados() {
+        List<Agendamento> agendamentos = repository.findAll(); // Obtenha todos os agendamentos
+        Map<LocalDate, Long> contagemDias = new HashMap<>();
+
+        for (Agendamento agendamento : agendamentos) {
+            LocalDate data = agendamento.getDataHora().toLocalDate(); // Extrai a data do agendamento
+            contagemDias.put(data, contagemDias.getOrDefault(data, 0L) + 1);
+        }
+
+        return contagemDias;
     }
 }

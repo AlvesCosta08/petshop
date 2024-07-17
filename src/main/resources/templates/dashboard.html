@@ -30,7 +30,7 @@
     </nav>
 </header>
 <div class="container">
-    <h1 class="mt-5 text-center">Dashboard do Petshop</h1>
+    <h1 class="mt-5 text-center">Dashboard</h1>
     <div class="row mt-4 d-flex justify-content-center">
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="card shadow-sm">
@@ -76,6 +76,14 @@
                     <h5 class="card-title">Serviços</h5>
                     <a th:href="@{/servicos/cadastrar}" class="btn btn-primary">Cadastrar</a>
                     <a th:href="@{/servicos/listar}" class="btn btn-secondary">Listar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Relatórios</h5>
+                    <a th:href="@{/agendamentos/horariosMaisAgendados}"class="btn btn-secondary">Listar</a>
                 </div>
             </div>
         </div>
