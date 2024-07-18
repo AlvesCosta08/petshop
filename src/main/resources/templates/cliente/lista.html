@@ -24,7 +24,7 @@
 		</div>
 	</nav>
 </header>
-<div class="container-fluid">
+<div class="container-fluid mt-4">
 	<h1 class="mt-5">Lista de Clientes</h1>
 	<form class="form-inline mb-3" method="get" action="/clientes">
 		<input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search" name="nome" th:value="${nome}">
@@ -39,7 +39,7 @@
 
 	<div class="d-block d-md-none">
 		<ul class="list-group">
-			<li th:each="cliente : ${clientes}" class="list-group-item">
+			<li th:each="cliente : ${cliente}" class="list-group-item">
 				<strong>Nome:</strong> <span th:text="${cliente.nome}"></span><br>
 				<strong>Email:</strong> <span th:text="${cliente.email}"></span><br>
 				<strong>Telefone:</strong> <span th:text="${cliente.telefone}"></span><br>
@@ -60,7 +60,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr th:each="cliente : ${cliente}">
+			<tr th:each="cliente : ${clientes}">
 				<td th:text="${cliente.nome}"></td>
 				<td th:text="${cliente.email}"></td>
 				<td th:text="${cliente.telefone}"></td>
@@ -72,7 +72,6 @@
 			</tbody>
 		</table>
 	</div>
-</div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
