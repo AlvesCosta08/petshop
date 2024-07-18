@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -20,7 +22,7 @@ public class ClienteController {
     @Autowired
     private ClienteService service;
 
-    // Página de cadastro de cliente
+
     @GetMapping("/cadastrar")
     public String cadastrar(Model model) {
         model.addAttribute("cliente", new Cliente());
@@ -28,14 +30,14 @@ public class ClienteController {
     }
 
 
-    // Listagem de clientes
     @GetMapping("/listar")
     public String listar(ModelMap model) {
-        model.addAttribute("clientes", service.getAll());
+        List<Cliente> clientes = service.getAll();
+        model.addAttribute("cliente", clientes);
         return "cliente/lista";
     }
 
-    // Salvar cliente
+
     @PostMapping("/salvar")
     public String salvar(@Valid @ModelAttribute Cliente cliente, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
@@ -46,7 +48,7 @@ public class ClienteController {
         return "redirect:/clientes/listar";
     }
 
-    // Excluir cliente
+
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
         try {
@@ -59,7 +61,6 @@ public class ClienteController {
     }
 
 
-    // Carregar dados do cliente para edição
     @GetMapping("/editar/{id}")
     public String preEditar(@PathVariable("id") Long id, ModelMap model) {
         Cliente cliente = service.getById(id).orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado: " + id));
@@ -67,7 +68,7 @@ public class ClienteController {
         return "cliente/editar"; // Nome da página Thymeleaf para edição
     }
 
-    // Processar formulário de edição
+
     @PostMapping("/editar")
     public String editar(@Valid @ModelAttribute("cliente") Cliente cliente,BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
@@ -77,5 +78,19 @@ public class ClienteController {
         service.update(cliente.getId(), cliente);
         return "redirect:/clientes/listar"; // Redireciona para listagem após editar
     }
+
+    @GetMapping
+    public String getAllClientes(Model model, @RequestParam(value = "nome", required = false) String nome) {
+        List<Cliente> clientes;
+        if (nome != null && !nome.isEmpty()) {
+            clientes = service.searchByNome(nome);
+        } else {
+            clientes = service.getAll();
+        }
+        model.addAttribute("clientes", clientes);
+        model.addAttribute("nome", nome);
+        return "cliente/lista_nome";
+    }
+
 }
 

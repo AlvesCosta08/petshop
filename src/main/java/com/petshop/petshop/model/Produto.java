@@ -30,7 +30,7 @@ public class Produto {
     @NotNull(message = "A quantidade do produto é obrigatória.")
     @Min(value = 0, message = "A quantidade do produto não pode ser negativa.")
     private Integer quantidade;
-    private String foto; // Adicionado campo para armazenar o nome do arquivo
+    private String foto;
 
     public Produto() {
     }

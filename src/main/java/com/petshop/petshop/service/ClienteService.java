@@ -32,7 +32,7 @@ public class ClienteService {
             if (!clienteRepository.existsById(id)) {
                 return Optional.empty();
             }
-            cliente.setId(id); // Garantindo que o ID seja preservado
+            cliente.setId(id);
             Cliente updatedCliente = clienteRepository.save(cliente);
             return Optional.of(updatedCliente);
         }
@@ -40,4 +40,8 @@ public class ClienteService {
         public void delete(Long id) {
             clienteRepository.deleteById(id);
         }
+
+    public List<Cliente> searchByNome(String nome) {
+        return clienteRepository.findByNomeContainingIgnoreCase(nome);
+    }
 }

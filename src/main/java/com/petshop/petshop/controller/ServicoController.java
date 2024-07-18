@@ -13,27 +13,27 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/servicos") // Adiciona o prefixo para todas as rotas
+@RequestMapping("/servicos")
 public class ServicoController {
 
     @Autowired
     private ServicoService service;
 
-    // Método para exibir o formulário de cadastro
+
     @GetMapping("/cadastrar")
     public String cadastrar(Model model) {
         model.addAttribute("servico", new Servico());
         return "servico/cadastro";
     }
 
-    // Método para listar todos os serviços
+
     @GetMapping("/listar")
     public String listar(ModelMap model) {
         model.addAttribute("servico", service.getAll());
         return "servico/lista";
     }
 
-    // Método para salvar um novo serviço
+
     @PostMapping("/salvar")
     public String salvar(@Valid @ModelAttribute Servico servico, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
@@ -55,16 +55,16 @@ public class ServicoController {
         return "redirect:/servicos/listar";
     }
 
-    // Método para exibir o formulário de edição com os dados do serviço
+
     @GetMapping("/editar/{id}")
     public String preEditar(@PathVariable("id") Long id, ModelMap model) {
         Servico servico = service.getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Serviço não encontrado: " + id));
         model.addAttribute("servico", servico);
-        return "servico/editar"; // Nome da página Thymeleaf para edição
+        return "servico/editar";
     }
 
-    // Método para salvar as alterações do serviço editado
+
     @PostMapping("/editar")
     public String editar(@Valid @ModelAttribute("servico") Servico servico, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
@@ -76,7 +76,7 @@ public class ServicoController {
         } catch (DataIntegrityViolationException e) {
             attr.addFlashAttribute("fail", "Erro ao atualizar o serviço: " + e.getMessage());
         }
-        return "redirect:/servicos/listar"; // Redireciona para listagem após editar
+        return "redirect:/servicos/listar";
     }
 }
 

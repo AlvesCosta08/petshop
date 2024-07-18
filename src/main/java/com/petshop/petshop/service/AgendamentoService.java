@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AgendamentoService {
@@ -42,16 +39,23 @@ public class AgendamentoService {
         repository.deleteById(id);
     }
 
-    public Map<LocalDate, Long> contarHorariosAgendados() {
-        List<Agendamento> agendamentos = repository.findAll(); // Obtenha todos os agendamentos
-        Map<LocalDate, Long> contagemDias = new HashMap<>();
+    public Map<LocalDate, List<String>> contarAgendamentosPorDia() {
+        List<Agendamento> agendamentos = repository.findAll();
+        Map<LocalDate, List<String>> agendamentosPorDia = new HashMap<>();
 
         for (Agendamento agendamento : agendamentos) {
-            LocalDate data = agendamento.getDataHora().toLocalDate(); // Extrai a data do agendamento
-            contagemDias.put(data, contagemDias.getOrDefault(data, 0L) + 1);
+            LocalDate data = agendamento.getDataHora().toLocalDate();
+            String paciente = agendamento.getCliente().getNome(); // Supondo que você tenha um método getPaciente() que retorna o paciente do agendamento
+            String horario = agendamento.getDataHora().toLocalTime().toString(); // Horário do agendamento
+
+            if (!agendamentosPorDia.containsKey(data)) {
+                agendamentosPorDia.put(data, new ArrayList<>());
+            }
+
+            agendamentosPorDia.get(data).add(paciente + " - " + horario);
         }
 
-        return contagemDias;
+        return agendamentosPorDia;
     }
 
     public List<Agendamento> findAllWithDetails(String clienteNome) {

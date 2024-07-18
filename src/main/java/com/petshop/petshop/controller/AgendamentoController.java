@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -83,8 +82,6 @@ public class AgendamentoController {
         return "redirect:/agendamentos/listar";
     }
 
-
-    // Carregar dados do cliente para edição
     @GetMapping("/editar/{id}")
     public String preEditar(@PathVariable("id") Long id, ModelMap model) {
         Agendamento agendamento = service.getById(id).orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado: " + id));
@@ -108,10 +105,11 @@ public class AgendamentoController {
     }
     @GetMapping("/horariosMaisAgendados")
     public String listarHorariosMaisAgendados(Model model) {
-        Map<LocalDate, Long> contagemHorarios =service.contarHorariosAgendados();
-        model.addAttribute("horarios", contagemHorarios);
-        return "agendamento/horarios";
+        Map<LocalDate, List<String>> contagemHorarios = service.contarAgendamentosPorDia();
+        model.addAttribute("agendamentosPorDia", contagemHorarios); // Alterado para "agendamentosPorDia"
+        return "agendamento/horarios"; // Nome da página Thymeleaf onde os dados serão exibidos
     }
+
     @ModelAttribute("cliente")
     public List<Cliente> getClientes(){
         return  clienteService.getAll();

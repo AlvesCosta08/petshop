@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Lista de Agendamentos</title>
+	<title>Listar</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -25,19 +25,14 @@
 	</nav>
 </header>
 <div class="container-fluid mt-4">
-	<a class="nav-link" th:href="@{/agendamentos/cadastrar}"><i class="fas fa-plus"></i> <span> Agendamento</span></a>
+	<a class="btn btn-primary mb-3" th:href="@{/agendamentos/cadastrar}"><i class="fa-solid fa-square-plus"></i><span>&nbsp;
+ Agendamento</span></a>
+
 	<form action="#" th:action="@{/agendamentos/listarPorNome}" method="get" class="form-inline mb-3">
 		<input type="text" name="clienteNome" placeholder="Buscar por Cliente" class="form-control mr-2" />
-		<button type="submit" class="btn btn-primary">Buscar</button>
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
 	</form>
-
-	<!-- Exibe o nome buscado -->
-	<div th:if="${clienteNome}">
-		<p>Resultados da busca para: <strong th:text="${clienteNome}"></strong></p>
-	</div>
-
 	<div class="d-block d-md-none">
-		<!-- Exibição em lista para dispositivos móveis -->
 		<ul class="list-group">
 			<tr th:each="agendamento : ${agendamentos}">
 				<li class="list-group-item">

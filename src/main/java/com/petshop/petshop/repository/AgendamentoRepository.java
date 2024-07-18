@@ -13,4 +13,9 @@ import java.util.List;
 public interface AgendamentoRepository extends JpaRepository<Agendamento,Long> {
     @Query("SELECT a FROM Agendamento a JOIN FETCH a.cliente JOIN FETCH a.servico JOIN FETCH a.pet WHERE a.cliente.nome LIKE %:clienteNome%")
     List<Agendamento> findByClienteNomeContaining(@Param("clienteNome") String clienteNome);
+    @Query("SELECT c, p, s, a.dataHora FROM Agendamento a " +
+            "JOIN a.cliente c " +
+            "JOIN a.pet p " +
+            "JOIN a.servico s")
+    List<Object[]> consultaJoinClientesPetsServicos();
 }

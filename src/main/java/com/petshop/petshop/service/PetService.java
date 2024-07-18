@@ -32,7 +32,7 @@ public class PetService{
         if (!repository.existsById(id)) {
             return Optional.empty();
         }
-        pet.setId(id); // Garantindo que o ID seja preservado
+        pet.setId(id);
        Pet updatedPet = repository.save(pet);
         return Optional.of(updatedPet);
     }

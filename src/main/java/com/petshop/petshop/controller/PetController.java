@@ -26,21 +26,21 @@ public class PetController {
     @Autowired
     private ClienteService clienteService;
 
-    // Página de cadastro de pet
+
     @GetMapping("/cadastrar")
     public String cadastrar(Model model) {
         model.addAttribute("pet", new Pet());
         return "pet/cadastro";
     }
 
-    // Listagem de pet
+
     @GetMapping("/listar")
     public String listar(ModelMap model) {
         model.addAttribute("pet", service.getAll());
         return "pet/lista";
     }
 
-    // Salvar pet
+
     @PostMapping("/salvar")
     public String salvar(@Valid @ModelAttribute Pet pet, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
@@ -51,7 +51,7 @@ public class PetController {
         return "redirect:/pets/listar";
     }
 
-    // Excluir pet
+
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
         service.delete(id);

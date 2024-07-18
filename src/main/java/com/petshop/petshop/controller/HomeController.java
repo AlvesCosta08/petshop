@@ -22,6 +22,6 @@ public class HomeController {
                        @RequestParam(value = "size", defaultValue = "3") int size) {
         Page<Produto> produtosPage = service.findPage(PageRequest.of(page, size));
         model.addAttribute("produtosPage", produtosPage);
-        return "home"; // ou o nome do seu template de homepage
+        return "home";
     }
 }

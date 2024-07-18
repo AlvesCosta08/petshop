@@ -34,7 +34,7 @@ public class ProdutoController {
     @Value("${file.upload-dir}")
     private String diretorioDeArmazenamento;
 
-    // Página de cadastro de produto
+
     @GetMapping("/cadastrar")
     public String cadastrar(Model model) {
         model.addAttribute("produto", new Produto());
@@ -42,7 +42,7 @@ public class ProdutoController {
     }
 
 
-    // Listagem de produtos
+
     @GetMapping("/listar")
     public String listar(
             ModelMap model,
@@ -74,7 +74,7 @@ public class ProdutoController {
         return "redirect:/produtos/listar";
     }
 
-    // Excluir produto
+
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
         service.delete(id);
