@@ -33,7 +33,7 @@ public class ClienteController {
     @GetMapping("/listar")
     public String listar(ModelMap model) {
         List<Cliente> clientes = service.getAll();
-        model.addAttribute("cliente", clientes);
+        model.addAttribute("clientes", clientes);
         return "cliente/lista";
     }
 

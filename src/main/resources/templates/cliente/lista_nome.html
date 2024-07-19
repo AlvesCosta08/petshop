@@ -45,7 +45,7 @@
     <!-- Listagem de Clientes em Tela Pequena -->
     <div class="d-block d-md-none">
         <ul class="list-group">
-            <li th:each="cliente : ${clientes}" class="list-group-item">
+            <li th:each="cliente : ${cliente}" class="list-group-item">
                 <strong>Nome:</strong> <span th:text="${cliente.nome}"></span><br>
                 <strong>Email:</strong> <span th:text="${cliente.email}"></span><br>
                 <strong>Telefone:</strong> <span th:text="${cliente.telefone}"></span><br>

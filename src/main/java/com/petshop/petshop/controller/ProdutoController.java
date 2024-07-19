@@ -30,10 +30,8 @@ public class ProdutoController {
     @Autowired
     private ProdutoService service;
 
-
     @Value("${file.upload-dir}")
     private String diretorioDeArmazenamento;
-
 
     @GetMapping("/cadastrar")
     public String cadastrar(Model model) {
@@ -41,18 +39,15 @@ public class ProdutoController {
         return "produto/cadastro";
     }
 
-
-
     @GetMapping("/listar")
     public String listar(
             ModelMap model,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "9") int size) {
+            @RequestParam(value = "size", defaultValue = "3") int size) {
         Page<Produto> produtosPage = service.findPage(PageRequest.of(page, size));
         model.addAttribute("produtosPage", produtosPage);
         return "produto/lista";
     }
-
 
     @PostMapping("/salvar")
     public String salvar(@Valid @ModelAttribute Produto produto,
@@ -74,11 +69,10 @@ public class ProdutoController {
         return "redirect:/produtos/listar";
     }
 
-
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
         service.delete(id);
-        attr.addFlashAttribute("success", "Cliente excluído com sucesso.");
+        attr.addFlashAttribute("success", "Produto excluído com sucesso.");
         return "redirect:/produtos/listar";
     }
 
