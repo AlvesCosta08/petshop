@@ -21,12 +21,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-
                         .requestMatchers("/login", "/logout", "/", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").permitAll()
 
-                        .requestMatchers("/agendamentos/excluir/**", "/servicos/excluir/**", "/pets/excluir/**", "/produtos/excluir/**", "/clientes/excluir/**").denyAll()
 
-                        .requestMatchers("/excluir/**").hasRole("ADMIN")
+                        .requestMatchers("/agendamentos/excluir/**", "/servicos/excluir/**", "/pets/excluir/**", "/produtos/excluir/**", "/clientes/excluir/**").hasRole("ADMIN")
+
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -38,8 +38,8 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout=true")
-                        .invalidateHttpSession(true) // Garante que a sessão seja invalidada
-                        .deleteCookies("JSESSIONID") // Remove o cookie da sessão
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
                 .sessionManagement(session -> session
