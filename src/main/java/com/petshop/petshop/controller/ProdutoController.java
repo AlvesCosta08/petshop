@@ -1,5 +1,7 @@
 package com.petshop.petshop.controller;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,7 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("/produtos")
+@Tag(name = "Produto", description = "Cadastro e gerenciamento de Produtos")
 public class ProdutoController {
 
     @Autowired
@@ -33,13 +36,17 @@ public class ProdutoController {
     @Value("${file.upload-dir}")
     private String diretorioDeArmazenamento;
 
+    @Operation(summary = "Exibe o formulário para criar um novo produto")
     @GetMapping("/cadastrar")
+    @ApiResponse(responseCode = "200", description = "Formulário exibido com sucesso")
     public String cadastrar(Model model) {
         model.addAttribute("produto", new Produto());
         return "produto/cadastro";
     }
 
+    @Operation(summary = "Lista todos os produtos com paginação")
     @GetMapping("/listar")
+    @ApiResponse(responseCode = "200", description = "Lista de produtos exibida com sucesso")
     public String listar(
             ModelMap model,
             @RequestParam(value = "page", defaultValue = "0") int page,
@@ -49,7 +56,10 @@ public class ProdutoController {
         return "produto/lista";
     }
 
+    @Operation(summary = "Salva um novo produto")
     @PostMapping("/salvar")
+    @ApiResponse(responseCode = "201", description = "Produto criado com sucesso")
+    @ApiResponse(responseCode = "400", description = "Erro de validação de dados")
     public String salvar(@Valid @ModelAttribute Produto produto,
                          BindingResult result,
                          @RequestParam("file") MultipartFile file,
@@ -69,14 +79,20 @@ public class ProdutoController {
         return "redirect:/produtos/listar";
     }
 
+    @Operation(summary = "Exclui um produto pelo seu ID")
     @GetMapping("/excluir/{id}")
+    @ApiResponse(responseCode = "200", description = "Produto excluído com sucesso")
+    @ApiResponse(responseCode = "404", description = "Produto não encontrado")
     public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
         service.delete(id);
         attr.addFlashAttribute("success", "Produto excluído com sucesso.");
         return "redirect:/produtos/listar";
     }
 
+    @Operation(summary = "Exibe o formulário para editar um produto existente")
     @GetMapping("/editar/{id}")
+    @ApiResponse(responseCode = "200", description = "Formulário de edição exibido com sucesso")
+    @ApiResponse(responseCode = "404", description = "Produto não encontrado")
     public String preEditar(@PathVariable("id") Long id, ModelMap model) {
         Produto produto = service.getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado: " + id));
@@ -84,7 +100,10 @@ public class ProdutoController {
         return "produto/editar";
     }
 
+    @Operation(summary = "Atualiza um produto existente")
     @PostMapping("/editar")
+    @ApiResponse(responseCode = "200", description = "Produto atualizado com sucesso")
+    @ApiResponse(responseCode = "400", description = "Erro de validação de dados")
     public String editar(@Valid @ModelAttribute Produto produto,
                          BindingResult result,
                          @RequestParam("file") MultipartFile file,
@@ -103,7 +122,7 @@ public class ProdutoController {
 
         service.update(produto.getId(), produto);
         attr.addFlashAttribute("success", "Produto editado com sucesso.");
-        return "redirect:/produtos/listar";
+        return "redirect:/produtos/listar"; // Redireciona para listagem após editar
     }
 
     private String salvarArquivoNoSistemaDeArquivos(MultipartFile file) throws IOException {

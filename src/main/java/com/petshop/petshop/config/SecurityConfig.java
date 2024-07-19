@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,8 +21,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/logout", "/", "/resources", "/static", "/css/**", "/js/**", "/images/**").permitAll() // Permite acesso público a essas URLs
-                        .requestMatchers("/delete/**").hasRole("ADMIN")
+
+                        .requestMatchers("/login", "/logout", "/", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").permitAll()
+
+                        .requestMatchers("/agendamentos/excluir/**", "/servicos/excluir/**", "/pets/excluir/**", "/produtos/excluir/**", "/clientes/excluir/**").denyAll()
+
+                        .requestMatchers("/excluir/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -34,23 +37,17 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/logout.html")
+                        .logoutSuccessUrl("/login?logout=true")
+                        .invalidateHttpSession(true) // Garante que a sessão seja invalidada
+                        .deleteCookies("JSESSIONID") // Remove o cookie da sessão
                         .permitAll()
                 )
                 .sessionManagement(session -> session
                         .sessionFixation().migrateSession()
                         .invalidSessionUrl("/login?session=invalid")
-                        .maximumSessions(1)
-                        .expiredUrl("/login?session=expired")
-                )
-                .sessionManagement(session -> session
-                        .sessionFixation(SessionManagementConfigurer.SessionFixationConfigurer::migrateSession)
-                        .invalidSessionUrl("/login?session=invalid")
                         .sessionConcurrency(concurrency -> concurrency
                                 .maximumSessions(1)
                                 .expiredUrl("/login?session=expired"))
-                )
-                .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 );
 
