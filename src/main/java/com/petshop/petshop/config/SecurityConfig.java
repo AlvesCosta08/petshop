@@ -43,7 +43,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .sessionManagement(session -> session
-                        .sessionFixation().migrateSession()
+                        .sessionFixation().newSession()
                         .invalidSessionUrl("/login?session=invalid")
                         .sessionConcurrency(concurrency -> concurrency
                                 .maximumSessions(1)

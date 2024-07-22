@@ -8,6 +8,6 @@ public class LogoutController {
 
     @GetMapping("/logout")
     public String logoutPage() {
-        return "logout";
+        return "logout"; // Return the name of the view for the logout page
     }
 }
