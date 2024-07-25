@@ -7,42 +7,41 @@ document.addEventListener("DOMContentLoaded", function() {
         form.addEventListener('submit', handleFormSubmit);
     }
 
-    // Função para lidar com o envio do formulário
-    function handleFormSubmit(event) {
-        event.preventDefault(); // Previne o envio padrão do formulário
 
-        // Coleta os dados do formulário
+    function handleFormSubmit(event) {
+        event.preventDefault();
+
+
         const rating = document.querySelector('input[name="rating"]:checked');
         const email = document.getElementById('email').value;
 
         if (rating && email) {
-            // Armazena os dados no localStorage
+
             saveFeedback(rating.value, email);
 
-            // Exibe uma mensagem de confirmação
+
             alert('Obrigado pela sua avaliação!');
 
-            // Atualiza o gráfico
+
             updateChart();
 
-            // Limpa o formulário
+
             form.reset();
 
-            // Limpa o localStorage após o envio (opcional)
-            // clearStorage();
+
         } else {
             alert('Por favor, selecione uma avaliação e insira seu e-mail.');
         }
     }
 
-    // Função para salvar feedback no localStorage
+
     function saveFeedback(rating, email) {
         const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
         feedbacks.push({ rating, email });
         localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
     }
 
-    // Função para atualizar o gráfico
+
     function updateChart() {
         const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
 
@@ -74,12 +73,12 @@ document.addEventListener("DOMContentLoaded", function() {
             }]
         };
 
-        // Destrói o gráfico se já existir
+
         if (satisfactionChart) {
             satisfactionChart.destroy();
         }
 
-        // Cria um novo gráfico
+
         satisfactionChart = new Chart(ctx, {
             type: 'bar',
             data: data,
@@ -93,19 +92,31 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Função para limpar o localStorage (opcional)
+
     function clearStorage() {
-        localStorage.clear(); // Limpa todos os dados do localStorage
+        localStorage.clear();
     }
 
-    // Inicializa o gráfico ao carregar a página
     updateChart();
 });
 
 
+    $(document).ready(function() {
+
+        $('#produtoCarousel').on('slide.bs.carousel', function (event) {
+            var nextItem = $(event.relatedTarget);
+            var currentItem = $(event.from);
+
+            currentItem.find('.card').fadeOut(500, function() {
+                nextItem.find('.card').fadeIn(500);
+            });
+        });
 
 
-
-
-
+        $('#produtoCarousel').carousel({
+            interval: 3000,
+            pause: 'hover',
+            ride: 'carousel'
+        });
+    });
 

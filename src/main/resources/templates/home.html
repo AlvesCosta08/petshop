@@ -118,19 +118,36 @@
 <section id="produtos" class="py-5" style="background-color: #f8f9fa;">
     <div class="container">
         <h2 class="text-center" style="color: #333; font-size: 2.5rem; font-weight: bold;">Produtos</h2>
-        <div class="row">
-            <div class="col-md-4 mb-4" th:each="produto : ${produtosPage.content}">
-                <div class="card border-light shadow-sm" style="border-radius: 10px;">
-                    <img th:src="@{{foto}(foto=${produto.foto})}" alt="Imagem do Produto" class="card-img-top" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="color: #333; font-size: 1.25rem;" th:text="${produto.nome}">Nome do Produto</h5>
-                        <p class="card-text" style="color: #666;" th:text="${produto.descricao}">Descrição do Produto</p>
-                        <div class="text-center">
-                            <a href="#" class="btn btn-warning" style="border-radius: 20px;">Saiba mais</a>
+        <div id="produtoCarousel" class="carousel slide">
+            <div class="carousel-inner">
+                <div class="carousel-item active" th:each="produto, iterStat : ${produtosPage.content}" th:if="${iterStat.index % 3 == 0}">
+                    <div class="row">
+                        <div class="col-md-4 mb-4" th:each="produto : ${produtosPage.content}">
+                            <div class="card border-light shadow-sm" style="border-radius: 10px;">
+                                <img th:src="@{{foto}(foto=${produto.foto})}" alt="Imagem do Produto" class="d-block w-100" style="object-fit: cover; height: 300px;">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: #333; font-size: 1.25rem;" th:text="${produto.nome}"></h5>
+                                    <p class="card-text" style="color: #666;" th:text="${produto.descricao}"></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span style="font-size: 1.125rem; color: #333;" th:text="${produto.preco}"></span>
+                                        <a href="#" class="btn btn-warning" style="border-radius: 20px;">Adicionar ao Carrinho</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#produtoCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#produtoCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
 </section>

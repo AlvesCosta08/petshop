@@ -1,4 +1,5 @@
 package com.petshop.petshop.controller;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,12 +19,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
+import javax.imageio.ImageIO;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
 
 @Controller
 @RequestMapping("/produtos")
@@ -35,6 +45,9 @@ public class ProdutoController {
 
     @Value("${file.upload-dir}")
     private String diretorioDeArmazenamento;
+
+    @Value("${qrcode.upload-dir}")
+    private String diretorioQRCode;
 
     @Operation(summary = "Exibe o formulário para criar um novo produto")
     @GetMapping("/cadastrar")
@@ -63,15 +76,18 @@ public class ProdutoController {
     public String salvar(@Valid @ModelAttribute Produto produto,
                          BindingResult result,
                          @RequestParam("file") MultipartFile file,
-                         RedirectAttributes attr) throws IOException {
+                         RedirectAttributes attr) throws IOException, WriterException {
         if (result.hasErrors()) {
             return "produto/cadastro";
         }
 
         if (!file.isEmpty()) {
-            String urlImagem = salvarArquivoNoSistemaDeArquivos(file); // Salva o arquivo e obtém a URL
-            produto.setFoto(urlImagem); // Define a URL da imagem no produto
+            String urlImagem = salvarArquivoNoSistemaDeArquivos(file);
+            produto.setFoto(urlImagem);
         }
+
+        String qrCodeNome = gerarQRCode(produto.getNome());
+        produto.setQrcode(qrCodeNome);
 
         service.create(produto);
 
@@ -108,7 +124,7 @@ public class ProdutoController {
                          BindingResult result,
                          @RequestParam("file") MultipartFile file,
                          @RequestParam("fotoOriginal") String fotoOriginal,
-                         RedirectAttributes attr) throws IOException {
+                         RedirectAttributes attr) throws IOException, WriterException {
         if (result.hasErrors()) {
             return "produto/editar";
         }
@@ -120,9 +136,12 @@ public class ProdutoController {
             produto.setFoto(fotoOriginal);
         }
 
+        String qrCodeNome = gerarQRCode(produto.getNome());
+        produto.setQrcode(qrCodeNome);
+
         service.update(produto.getId(), produto);
         attr.addFlashAttribute("success", "Produto editado com sucesso.");
-        return "redirect:/produtos/listar"; // Redireciona para listagem após editar
+        return "redirect:/produtos/listar";
     }
 
     private String salvarArquivoNoSistemaDeArquivos(MultipartFile file) throws IOException {
@@ -145,4 +164,35 @@ public class ProdutoController {
             throw new IOException("Falha ao salvar o arquivo " + nomeArquivo, e);
         }
     }
+
+    private String gerarQRCode(String conteudo) throws IOException, WriterException {
+        // Limpeza do nome do arquivo
+        String nomeQRCode = StringUtils.cleanPath(conteudo) + ".png";
+        Path diretorio = Paths.get(diretorioQRCode);
+
+        // Criação do diretório, se necessário
+        if (!Files.exists(diretorio)) {
+            Files.createDirectories(diretorio);
+        }
+
+        File qrCodeFile = diretorio.resolve(nomeQRCode).toFile();
+
+        // Geração do QR Code
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(conteudo, BarcodeFormat.QR_CODE, 200, 200);
+
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+            ImageIO.write(bufferedImage, "PNG", outputStream);
+
+            // Escrita do arquivo
+            Files.write(qrCodeFile.toPath(), outputStream.toByteArray());
+
+            System.out.println("QR Code gerado e salvo em: " + qrCodeFile.getAbsolutePath());
+        }
+
+        return "/qrcodes/" + nomeQRCode;
+    }
 }
+
+

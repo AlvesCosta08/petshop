@@ -32,16 +32,19 @@ public class Produto {
     private Integer quantidade;
     private String foto;
 
+    private String qrcode;
+
     public Produto() {
     }
 
-    public Produto(Long id, String nome, String descricao, Double preco, Integer quantidade, String foto) {
+    public Produto(Long id, String nome, String descricao, Double preco, Integer quantidade, String foto,String qrcode) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.quantidade = quantidade;
         this.foto = foto;
+        this.qrcode = qrcode;
     }
 
     public Long getId() {
@@ -90,6 +93,14 @@ public class Produto {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public String getQrcode() {
+        return qrcode;
+    }
+
+    public void setQrcode(String qrcode) {
+        this.qrcode = qrcode;
     }
 }
 
