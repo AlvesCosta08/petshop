@@ -5,9 +5,11 @@ import com.petshop.petshop.model.Produto;
 import com.petshop.petshop.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,5 +43,14 @@ public class ProdutoService {
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+
+    public List<Produto> findAll() {
+        return repository.findAll();
+    }
+
+    public Page<Produto> findByNamePage(String nome, Pageable pageable) {
+        return repository.findByNome(nome, pageable);
     }
 }

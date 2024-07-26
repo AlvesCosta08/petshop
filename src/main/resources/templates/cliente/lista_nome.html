@@ -28,21 +28,21 @@
 <div class="container-fluid">
     <h1 class="mt-5">Lista de Clientes</h1>
 
-    <!-- Formulário de Pesquisa -->
+
     <form class="form-inline mb-3" method="get" action="/clientes">
         <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar por nome" aria-label="Search" name="nome" th:value="${nome}">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
     </form>
 
-    <!-- Mensagem de Erro -->
+
     <div th:if="${param.error == 'violacao-chave-estrangeira'}" class="alert alert-danger" role="alert">
         A exclusão do cliente não pode ser realizada porque há pets associados a ele.
     </div>
 
-    <!-- Botão para cadastrar novo cliente -->
+
     <a th:href="@{/clientes/cadastrar}" class="btn btn-primary mb-3"><i class="fa-solid fa-user-plus"></i> <span>&nbsp; Novo Cliente</span></a>
 
-    <!-- Listagem de Clientes em Tela Pequena -->
+
     <div class="d-block d-md-none">
         <ul class="list-group">
             <li th:each="cliente : ${cliente}" class="list-group-item">
@@ -55,7 +55,7 @@
         </ul>
     </div>
 
-    <!-- Tabela de Clientes em Tela Grande -->
+
     <div class="table-responsive d-none d-md-block">
         <table class="table table-bordered">
             <thead>

@@ -7,33 +7,21 @@ document.addEventListener("DOMContentLoaded", function() {
         form.addEventListener('submit', handleFormSubmit);
     }
 
-
     function handleFormSubmit(event) {
         event.preventDefault();
-
 
         const rating = document.querySelector('input[name="rating"]:checked');
         const email = document.getElementById('email').value;
 
         if (rating && email) {
-
             saveFeedback(rating.value, email);
-
-
             alert('Obrigado pela sua avaliação!');
-
-
             updateChart();
-
-
             form.reset();
-
-
         } else {
             alert('Por favor, selecione uma avaliação e insira seu e-mail.');
         }
     }
-
 
     function saveFeedback(rating, email) {
         const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
@@ -41,14 +29,17 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
     }
 
-
     function updateChart() {
         const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
 
-        const ratings = feedbacks.reduce((acc, feedback) => {
-            acc[feedback.rating - 1]++;
-            return acc;
-        }, [0, 0, 0, 0, 0]);
+
+        const ratings = [0, 0, 0, 0, 0];
+        feedbacks.forEach(feedback => {
+            const ratingIndex = feedback.rating - 1;
+            if (ratingIndex >= 0 && ratingIndex < 5) {
+                ratings[ratingIndex]++;
+            }
+        });
 
         const data = {
             labels: ['1 Estrela', '2 Estrelas', '3 Estrelas', '4 Estrelas', '5 Estrelas'],
@@ -73,11 +64,9 @@ document.addEventListener("DOMContentLoaded", function() {
             }]
         };
 
-
         if (satisfactionChart) {
             satisfactionChart.destroy();
         }
-
 
         satisfactionChart = new Chart(ctx, {
             type: 'bar',
@@ -92,31 +81,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-
     function clearStorage() {
         localStorage.clear();
     }
 
+    clearStorage();
+
     updateChart();
 });
 
-
-    $(document).ready(function() {
-
-        $('#produtoCarousel').on('slide.bs.carousel', function (event) {
-            var nextItem = $(event.relatedTarget);
-            var currentItem = $(event.from);
-
-            currentItem.find('.card').fadeOut(500, function() {
-                nextItem.find('.card').fadeIn(500);
-            });
-        });
-
-
-        $('#produtoCarousel').carousel({
-            interval: 3000,
-            pause: 'hover',
-            ride: 'carousel'
-        });
-    });
 

@@ -1,5 +1,6 @@
 package com.petshop.petshop.controller;
 
+import com.petshop.petshop.model.Cliente;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,6 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
 import javax.imageio.ImageIO;
 import com.google.zxing.BarcodeFormat;
@@ -57,14 +59,22 @@ public class ProdutoController {
         return "produto/cadastro";
     }
 
-    @Operation(summary = "Lista todos os produtos com paginação")
+    @Operation(summary = "Lista produtos com paginação e filtro por nome")
     @GetMapping("/listar")
     @ApiResponse(responseCode = "200", description = "Lista de produtos exibida com sucesso")
     public String listar(
             ModelMap model,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "3") int size) {
-        Page<Produto> produtosPage = service.findPage(PageRequest.of(page, size));
+            @RequestParam(value = "size", defaultValue = "5") int size,
+            @RequestParam(value = "nome", required = false) String nome) {
+
+        Page<Produto> produtosPage;
+        if (nome != null && !nome.isEmpty()) {
+            produtosPage = service.findByNamePage(nome, PageRequest.of(page, size));
+        } else {
+            produtosPage = service.findPage(PageRequest.of(page, size));
+        }
+
         model.addAttribute("produtosPage", produtosPage);
         return "produto/lista";
     }
@@ -166,18 +176,15 @@ public class ProdutoController {
     }
 
     private String gerarQRCode(String conteudo) throws IOException, WriterException {
-        // Limpeza do nome do arquivo
         String nomeQRCode = StringUtils.cleanPath(conteudo) + ".png";
         Path diretorio = Paths.get(diretorioQRCode);
 
-        // Criação do diretório, se necessário
         if (!Files.exists(diretorio)) {
             Files.createDirectories(diretorio);
         }
 
         File qrCodeFile = diretorio.resolve(nomeQRCode).toFile();
 
-        // Geração do QR Code
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(conteudo, BarcodeFormat.QR_CODE, 200, 200);
 
@@ -185,7 +192,6 @@ public class ProdutoController {
             BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
             ImageIO.write(bufferedImage, "PNG", outputStream);
 
-            // Escrita do arquivo
             Files.write(qrCodeFile.toPath(), outputStream.toByteArray());
 
             System.out.println("QR Code gerado e salvo em: " + qrCodeFile.getAbsolutePath());
@@ -194,5 +200,4 @@ public class ProdutoController {
         return "/qrcodes/" + nomeQRCode;
     }
 }
-
 
