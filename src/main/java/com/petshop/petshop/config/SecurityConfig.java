@@ -21,11 +21,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
+
                         .requestMatchers("/login", "/logout", "/", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").permitAll()
 
-
                         .requestMatchers("/agendamentos/excluir/**", "/servicos/excluir/**", "/pets/excluir/**", "/produtos/excluir/**", "/clientes/excluir/**").hasRole("ADMIN")
-
 
                         .anyRequest().authenticated()
                 )
@@ -43,12 +42,22 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .sessionManagement(session -> session
+
                         .sessionFixation().newSession()
+
                         .invalidSessionUrl("/login?session=invalid")
+
                         .sessionConcurrency(concurrency -> concurrency
                                 .maximumSessions(1)
-                                .expiredUrl("/login?session=expired"))
+                                .expiredUrl("/login?session=expired")
+                        )
+
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                        .maximumSessions(1)
+                        .expiredUrl("/login?session=expired")
                 );
 
         return http.build();
@@ -57,11 +66,13 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+
         UserDetails adminUser = User.withUsername("squad3")
                 .password(passwordEncoder().encode("123"))
                 .roles("ADMIN")
                 .build();
         manager.createUser(adminUser);
+
 
         UserDetails regularUser = User.withUsername("cliente")
                 .password(passwordEncoder().encode("123"))

@@ -28,6 +28,16 @@
 </header>
 <div class="container-fluid mt-5">
 	<h1>Lista de Produtos</h1>
+	<form class="mb-4" method="get" th:action="@{/produtos/listar}">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="Buscar por nome" name="nome" th:value="${param.nome}">
+			<div class="input-group-append">
+				<button class="btn btn-primary" type="submit">
+					<i class="fa-solid fa-search"></i> Buscar
+				</button>
+			</div>
+		</div>
+	</form>
 	<a th:href="@{/produtos/cadastrar}" class="btn btn-primary mb-3" >
 		<i class="fa-solid fa-square-plus"></i> <span>&nbsp;
 Produto</span>
@@ -41,6 +51,7 @@ Produto</span>
 				<th>Preço</th>
 				<th>Quantidade</th>
 				<th>Foto</th>
+				<th>Código</th>
 				<th>Ações</th>
 			</tr>
 			</thead>
@@ -52,6 +63,9 @@ Produto</span>
 				<td th:text="${p.quantidade}"></td>
 				<td>
 					<img th:src="@{{foto}(foto=${p.foto})}" alt="Foto do produto" style="width: 100px; height: auto;">
+				</td>
+				<td>
+					<img th:src="@{{qrcode}(qrcode=${p.qrcode})}" alt="QRcode" style="width: 100px; height: auto;">
 				</td>
 				<td>
 					<a th:href="@{/produtos/editar/{id}(id=${p.id})}" class="btn btn-warning btn-sm mx-1">Editar</a>
