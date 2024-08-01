@@ -105,9 +105,10 @@ public class ClienteController {
         return "redirect:/clientes/listar";
     }
 
-    @GetMapping
+
     @Operation(summary = "Buscar clientes")
     @ApiResponse(responseCode = "200", description = "Clientes encontrados com sucesso")
+    @GetMapping
     public String getAllClientes(Model model, @RequestParam(value = "search", required = false) String search) {
         List<Cliente> clientes;
         if (search != null && !search.isEmpty()) {
@@ -117,6 +118,6 @@ public class ClienteController {
         }
         model.addAttribute("clientes", clientes);
         model.addAttribute("search", "");
-        return "cliente/lista";
+        return "cliente/lista_nome";
     }
 }
