@@ -301,3 +301,28 @@ footer .social-icons a:hover {
 .card-text {
     margin-bottom: 1.25rem;
 }
+.star-rating {
+    direction: rtl;
+    display: inline-flex;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 2em;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+    color: #f7bc0c;
+}
+
+.star-rating input[type="radio"]:checked + label:hover,
+.star-rating label:hover ~ input[type="radio"]:checked ~ label,
+.star-rating label:hover ~ label {
+    color: #f7bc0c;
+}
