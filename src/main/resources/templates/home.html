@@ -162,7 +162,7 @@
     <div class="container text-center">
         <h2 class="mb-4">Avalie nossa loja!</h2>
         <form id="satisfactionForm">
-            <div class="star-rating">
+            <div class="star-rating mb-3">
                 <input type="radio" id="star5" name="rating" value="5" />
                 <label for="star5" class="fas fa-star"></label>
                 <input type="radio" id="star4" name="rating" value="4" />
@@ -180,10 +180,32 @@
             <button type="submit" class="btn btn-primary mt-3">Enviar Avaliação</button>
         </form>
     </div>
-    <div class="text-center">
+    <div class="text-center mt-5">
         <canvas id="satisfactionChart" width="400" height="100"></canvas>
     </div>
 </section>
+
+<section id="contato" class="py-5" style="background-color: #f0f8ff;">
+    <div class="container">
+        <h2 class="text-center mb-4">Contato</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <form id="contactForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nome</label>
+                        <input type="text" id="name" class="form-control" placeholder="Seu nome" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Mensagem</label>
+                        <textarea id="message" class="form-control" rows="5" placeholder="Sua mensagem" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <script src="js/acao_home.js"></script>
 

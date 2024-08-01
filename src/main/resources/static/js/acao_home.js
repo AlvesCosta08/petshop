@@ -18,8 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
             alert('Obrigado pela sua avaliação!');
             updateChart();
             form.reset();
-        } else {
-            alert('Por favor, selecione uma avaliação e insira seu e-mail.');
         }
     }
 
@@ -31,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function updateChart() {
         const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
-
 
         const ratings = [0, 0, 0, 0, 0];
         feedbacks.forEach(feedback => {
@@ -47,11 +44,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 label: 'Quantidade de Avaliações',
                 data: ratings,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)'
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -60,8 +57,51 @@ document.addEventListener("DOMContentLoaded", function() {
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)'
                 ],
-                borderWidth: 1
+                borderWidth: 2,
+                borderRadius: 5,
+                borderSkipped: false,
+                shadowOffsetX: 3,
+                shadowOffsetY: 3,
+                shadowBlur: 5,
+                shadowColor: 'rgba(0, 0, 0, 0.3)',
             }]
+        };
+
+        const options = {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(200, 200, 200, 0.2)',
+                    },
+                    ticks: {
+                        color: '#333',
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(200, 200, 200, 0.2)',
+                    },
+                    ticks: {
+                        color: '#333',
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#333',
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeInOutQuart'
+            }
         };
 
         if (satisfactionChart) {
@@ -71,13 +111,18 @@ document.addEventListener("DOMContentLoaded", function() {
         satisfactionChart = new Chart(ctx, {
             type: 'bar',
             data: data,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+            options: options,
+            plugins: [{
+                beforeDraw: (chart) => {
+                    const ctx = chart.ctx;
+                    ctx.save();
+                    ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+                    ctx.shadowBlur = 10;
+                    ctx.shadowOffsetX = 3;
+                    ctx.shadowOffsetY = 3;
+                    ctx.restore();
                 }
-            }
+            }]
         });
     }
 
@@ -86,8 +131,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     clearStorage();
-
     updateChart();
 });
+
 
 

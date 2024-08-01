@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,11 +22,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-
                         .requestMatchers("/login", "/logout", "/", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").permitAll()
-
                         .requestMatchers("/agendamentos/excluir/**", "/servicos/excluir/**", "/pets/excluir/**", "/produtos/excluir/**", "/clientes/excluir/**").hasRole("ADMIN")
-
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -41,23 +39,18 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
+                .headers(headers -> headers
+                        .cacheControl(HeadersConfigurer.CacheControlConfig::disable
+                        )
+                )
                 .sessionManagement(session -> session
-
                         .sessionFixation().newSession()
-
                         .invalidSessionUrl("/login?session=invalid")
-
                         .sessionConcurrency(concurrency -> concurrency
                                 .maximumSessions(1)
                                 .expiredUrl("/login?session=expired")
                         )
-
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                        .maximumSessions(1)
-                        .expiredUrl("/login?session=expired")
                 );
 
         return http.build();
