@@ -51,7 +51,6 @@ Produto</span>
 				<th>Preço</th>
 				<th>Quantidade</th>
 				<th>Foto</th>
-				<th>Código</th>
 				<th>Ações</th>
 			</tr>
 			</thead>
@@ -63,9 +62,6 @@ Produto</span>
 				<td th:text="${p.quantidade}"></td>
 				<td>
 					<img th:src="@{{foto}(foto=${p.foto})}" alt="Foto do produto" style="width: 100px; height: auto;">
-				</td>
-				<td>
-					<img th:src="@{{qrcode}(qrcode=${p.qrcode})}" alt="QRcode" style="width: 100px; height: auto;">
 				</td>
 				<td>
 					<a th:href="@{/produtos/editar/{id}(id=${p.id})}" class="btn btn-warning btn-sm mx-1">Editar</a>
