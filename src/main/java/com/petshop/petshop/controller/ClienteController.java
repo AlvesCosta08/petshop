@@ -108,16 +108,15 @@ public class ClienteController {
     @GetMapping
     @Operation(summary = "Buscar clientes")
     @ApiResponse(responseCode = "200", description = "Clientes encontrados com sucesso")
-    public String getAllClientes(Model model, @RequestParam(value = "nome", required = false) String nome) {
+    public String getAllClientes(Model model, @RequestParam(value = "search", required = false) String search) {
         List<Cliente> clientes;
-        if (nome != null && !nome.isEmpty()) {
-            clientes = service.searchByNome(nome);
+        if (search != null && !search.isEmpty()) {
+            clientes = service.searchByNome(search);
         } else {
-            clientes = service.getAll();
+            clientes = service.findAll();
         }
         model.addAttribute("clientes", clientes);
-        model.addAttribute("nome", nome);
-        return "cliente/lista_nome";
+        model.addAttribute("search", "");
+        return "cliente/lista";
     }
 }
-
