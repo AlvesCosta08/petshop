@@ -17,7 +17,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f8f9fa; /* Um fundo claro e neutro */
+    background-color: #ffffff; /* Um fundo claro e neutro */
 }
 
 .navbar {
@@ -183,4 +183,7 @@ a:hover {
 @media (max-width: 767px) {
     .shadow-text {
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.table-body {
+    background-color: #ffffff; /* Define o fundo branco */
 }

@@ -21,13 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.io.*;
+import java.nio.file.*;
 import java.util.List;
 import java.util.Objects;
 import javax.imageio.ImageIO;
@@ -160,20 +155,28 @@ public class ProdutoController {
             throw new IllegalArgumentException("Nome do arquivo não pode estar vazio!");
         }
 
-        try {
+        try (InputStream inputStream = file.getInputStream();
+             BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+             OutputStream outputStream = Files.newOutputStream(Paths.get(diretorioDeArmazenamento).resolve(nomeArquivo), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream)) {
+
             Path diretorio = Paths.get(diretorioDeArmazenamento);
             if (!Files.exists(diretorio)) {
                 Files.createDirectories(diretorio);
             }
 
-            Path caminhoCompleto = diretorio.resolve(nomeArquivo);
-            Files.copy(file.getInputStream(), caminhoCompleto, StandardCopyOption.REPLACE_EXISTING);
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = bufferedInputStream.read(buffer)) != -1) {
+                bufferedOutputStream.write(buffer, 0, bytesRead);
+            }
 
             return "/images/produtos/" + nomeArquivo;
         } catch (IOException e) {
             throw new IOException("Falha ao salvar o arquivo " + nomeArquivo, e);
         }
     }
+
 
     private String gerarQRCode(String conteudo) throws IOException, WriterException {
         String nomeQRCode = StringUtils.cleanPath(conteudo) + ".png";

@@ -116,21 +116,27 @@
 <section id="produtos" class="py-5">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-12 mb-4">
+            <div class="col-lg-12 mb-4">
                 <h2 class="text-center mb-4">Nossos Produtos</h2>
                 <div id="carouselProdutos1" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div th:each="produto, iterStat : ${produtosPage.content}"
                              class="carousel-item"
                              th:classappend="${iterStat.index == 0 ? ' active' : ''}">
-                            <div class="text-center">
-                                <img th:src="@{${produto.foto}}" class="d-block w-100 img-fluid rounded mb-3 produto-imagem"
-                                     alt="Imagem do Produto">
-                                <h5 th:text="${produto.nome}"></h5>
-                                <p th:text="${produto.descricao}"></p>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <span class="preco" th:text="'R$ ' + ${produto.preco}"></span>
-                                    <a href="#" class="btn btn-warning">Adicionar ao Carrinho</a>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card mb-4 shadow-sm border-0">
+                                        <img th:src="@{${produto.foto}}" class="card-img-top img-fluid rounded"
+                                             alt="Imagem do Produto">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title" th:text="${produto.nome}"></h5>
+                                            <p class="card-text" th:text="${produto.descricao}"></p>
+                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                                <span class="preco fs-5 fw-bold" th:text="'R$ ' + ${produto.preco}"></span>
+                                                <a href="#" class="btn btn-warning">Adicionar ao Carrinho</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -138,20 +144,18 @@
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselProdutos1"
                             data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
+                        <span class="visually-hidden">Anterior</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselProdutos1"
                             data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
+                        <span class="visually-hidden">Próximo</span>
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-
 
 
 <section id="satisfacao" class="py-5">
