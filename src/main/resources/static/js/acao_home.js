@@ -136,3 +136,52 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+ document.addEventListener('DOMContentLoaded', (event) => {
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+        const alert = (message, type) => {
+            // Remove any existing alerts
+            alertPlaceholder.innerHTML = '';
+
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('');
+
+            alertPlaceholder.append(wrapper);
+        };
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Produto adicionado ao carrinho!', 'success');
+            });
+        });
+    });
+
+  document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const alertContainer = document.getElementById('alertContainer');
+
+
+            while (alertContainer.firstChild) {
+                alertContainer.removeChild(alertContainer.firstChild);
+            }
+
+
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success alert-dismissible fade show';
+            alert.role = 'alert';
+            alert.innerHTML = `
+                Sua mensagem foi enviada com sucesso
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+
+            alertContainer.appendChild(alert);
+
+
+            this.reset();
+        });

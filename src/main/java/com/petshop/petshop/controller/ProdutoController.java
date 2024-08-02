@@ -74,6 +74,7 @@ public class ProdutoController {
         return "produto/lista";
     }
 
+
     @Operation(summary = "Salva um novo produto")
     @PostMapping("/salvar")
     @ApiResponse(responseCode = "201", description = "Produto criado com sucesso")
@@ -176,7 +177,6 @@ public class ProdutoController {
             throw new IOException("Falha ao salvar o arquivo " + nomeArquivo, e);
         }
     }
-
 
     private String gerarQRCode(String conteudo) throws IOException, WriterException {
         String nomeQRCode = StringUtils.cleanPath(conteudo) + ".png";
