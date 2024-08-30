@@ -16,6 +16,10 @@ public class Errors  implements ErrorViewResolver {
         ModelAndView model = new ModelAndView("/error");
         model.addObject("status", status.value());
         switch (status.value()) {
+            case 403:
+                model.addObject("error", "Sem Autorização.");
+                model.addObject("message", "A url para a página '" + map.get("path") + "' ");
+                break;
             case 404:
                 model.addObject("error", "Página não encontrada.");
                 model.addObject("message", "A url para a página '" + map.get("path") + "' não existe.");

@@ -6,6 +6,7 @@
     <title>Listar</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header_home.css}">
 </head>
 <body>
 <header class="header">
@@ -26,10 +27,10 @@
 </header>
 <main class="container">
     <h1 class="mt-5">Lista de Pets</h1>
-    <a class="btn btn-primary mb-3" th:href="@{/pets/cadastrar}">Adicionar Pet</a>
+    <a class="btn btn-primary mb-3" th:href="@{/pets/cadastrar}"><i class="fa-solid fa-square-plus"></i>&nbsp;
+        Pet</a>
 
     <div class="d-block d-md-none">
-        <!-- Exibição em lista para dispositivos móveis -->
         <ul class="list-group">
             <tr th:each="pet : ${pet}">
                 <li class="list-group-item">
@@ -73,7 +74,6 @@
         </table>
     </div>
 </main>
-<!-- Bootstrap JS e outros scripts necessários -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

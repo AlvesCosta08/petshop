@@ -19,9 +19,9 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model,
                        @RequestParam(value = "page", defaultValue = "0") int page,
-                       @RequestParam(value = "size", defaultValue = "3") int size) {
+                       @RequestParam(value = "size", defaultValue = "10") int size) {
         Page<Produto> produtosPage = service.findPage(PageRequest.of(page, size));
         model.addAttribute("produtosPage", produtosPage);
-        return "home"; // ou o nome do seu template de homepage
+        return "home";
     }
 }

@@ -3,9 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Lista de Clientes</title>
+	<title>Listar</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/header_home.css}">
 </head>
 <body>
 <header class="header">
@@ -24,28 +25,28 @@
 		</div>
 	</nav>
 </header>
-<div class="container-fluid">
+<div class="container-fluid mt-4">
 	<h1 class="mt-5">Lista de Clientes</h1>
-	<!-- Exibir mensagem de erro -->
+	<form class="form-inline mb-3" method="get" action="/clientes">
+		<input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search" name="search" th:value="${search}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+	</form>
+
 	<div th:if="${param.error == 'violacao-chave-estrangeira'}" class="alert alert-danger" role="alert">
 		A exclusão do cliente não pode ser realizada porque há pets associados a ele.
 	</div>
-	<a class="nav-link" th:href="@{/clientes/cadastrar}">
-		<i class="oi oi-plus"></i> <span>Add Cliente</span>
-	</a>
+
+	<a th:href="@{/clientes/cadastrar}" class="btn btn-primary mb-3"><i class="fa-solid fa-user-plus"></i> <span>&nbsp; Cliente</span></a>
 
 	<div class="d-block d-md-none">
-		<!-- Exibição em lista para dispositivos móveis -->
 		<ul class="list-group">
-			<tr th:each="c : ${clientes}">
-				<li class="list-group-item">
-					<strong>Nome:</strong> <span th:text="${c.nome}"></span><br>
-					<strong>Email:</strong> <span th:text="${c.email}"></span><br>
-					<strong>Telefone:</strong> <span th:text="${c.telefone}"></span><br>
-					<a th:href="@{/clientes/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
-					<a th:href="@{/clientes/excluir/{id}(id=${c.id})}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">Deletar</a>
-				</li>
-			</tr>
+			<li th:each="cliente : ${clientes}" class="list-group-item">
+				<strong>Nome:</strong> <span th:text="${cliente.nome}"></span><br>
+				<strong>Email:</strong> <span th:text="${cliente.email}"></span><br>
+				<strong>Telefone:</strong> <span th:text="${cliente.telefone}"></span><br>
+				<a th:href="@{/clientes/editar/{id}(id=${cliente.id})}" class="btn btn-warning">Editar</a>
+				<a th:href="@{/clientes/excluir/{id}(id=${cliente.id})}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">Deletar</a>
+			</li>
 		</ul>
 	</div>
 
@@ -60,23 +61,24 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr th:each="c : ${clientes}">
-				<td th:text="${c.nome}"></td>
-				<td th:text="${c.email}"></td>
-				<td th:text="${c.telefone}"></td>
+			<tr th:each="cliente : ${clientes}">
+				<td th:text="${cliente.nome}"></td>
+				<td th:text="${cliente.email}"></td>
+				<td th:text="${cliente.telefone}"></td>
 				<td>
-					<a th:href="@{/clientes/editar/{id}(id=${c.id})}" class="btn btn-warning">Editar</a>
-					<a th:href="@{/clientes/excluir/{id}(id=${c.id})}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">Deletar</a>
+					<a th:href="@{/clientes/editar/{id}(id=${cliente.id})}" class="btn btn-warning">Editar</a>
+					<a th:href="@{/clientes/excluir/{id}(id=${cliente.id})}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">Deletar</a>
 				</td>
 			</tr>
 			</tbody>
 		</table>
 	</div>
-</div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
 
 

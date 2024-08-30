@@ -1,0 +1,323 @@
+.navbar {
+    background-color: #f8f9fa;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+    color: #007bff;
+    transform: scale(1.05);
+}
+
+.nav-link {
+    color: #333;
+    transition: color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ff7e5f;
+    background-color: rgba(255, 126, 95, 0.1);
+    border-radius: 4px;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"%3E%3Cpath stroke="%23333" stroke-width="2" d="M5 7h20M5 15h20M5 23h20"/%3E%3C/svg%3E');
+}
+
+.nav-item {
+    margin-right: 1rem;
+}
+
+.nav-item:last-child {
+    margin-right: 0;
+}
+
+.header-bg {
+    background: linear-gradient(to right, rgba(255, 126, 95, 0.8), rgba(254, 180, 123, 0.8)), url('../images/fundo.jpg') no-repeat center center;
+    background-size: cover;
+    color: white;
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.header-bg h1 {
+    font-size: 4rem;
+}
+
+.header-bg h3 {
+    font-size: 2.5rem;
+}
+
+.header-bg p {
+    font-size: 1.5rem;
+}
+
+.header-bg .btn {
+    font-size: 1.25rem;
+    padding: 0.75rem 1.5rem;
+}
+
+
+#sobre {
+    background-color: #f0f8ff;
+    padding: 50px 0;
+    text-align: center;
+}
+
+#sobre h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+#sobre p {
+    font-size: 1.25rem;
+    color: #666;
+}
+
+.card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.card-text {
+    margin-bottom: 1rem;
+}
+
+/* Container dos produtos */
+
+#produtos {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+}
+
+#produtos .card {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 18rem;
+}
+
+#produtos .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#produtos .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background-color: #ffffff;
+
+#produtos .card-body {
+    background-color: #fff;
+}
+
+#produtos .card-title {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+#produtos .card-text {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+#produtos .preco {
+    color: #e74c3c;
+}
+
+#produtos .btn-warning {
+    background-color: #f39c12;
+    border-color: #e67e22;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+}
+
+#produtos .btn-warning:hover {
+    background-color: #e67e22;
+    border-color: #d35400;
+
+/* Estilo da paginação */
+.pagination {
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #ccc;
+    pointer-events: none;
+}
+
+.pagination .page-link {
+    border-radius: 0.25rem;
+    background-color: #fff;
+    color: #007bff;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination .page-link:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+ /* Ajustes adicionais para o formulário */
+ #satisfactionForm {
+     max-width: 500px; /* Largura máxima do formulário */
+     margin: 0 auto; /* Centraliza o formulário horizontalmente */
+ }
+
+ #email {
+     max-width: 400px; /* Largura máxima do campo de e-mail */
+     margin: 0 auto; /* Centraliza o campo de e-mail horizontalmente */
+ }
+
+ .btn-primary {
+     background-color: #007bff; /* Cor do botão */
+     border-color: #007bff; /* Cor da borda do botão */
+ }
+
+ .btn-primary:hover {
+     background-color: #0056b3; /* Cor do botão ao passar o mouse */
+     border-color: #004085; /* Cor da borda do botão ao passar o mouse */
+ }
+
+ /* Estilos do gráfico de satisfação */
+ #satisfactionChart {
+     max-width: 100%; /* Largura máxima do gráfico */
+     height: auto; /* Altura automática do gráfico */
+ }
+
+
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s, text-decoration 0.3s;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer .social-icons a {
+    color: #fff;
+    margin: 0 0.5rem;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+footer .social-icons a:hover {
+    color: #ffcc00;
+}
+
+
+@media (max-width: 768px) {
+    .header-bg h1 {
+        font-size: 3rem;
+    }
+
+    .header-bg h3 {
+        font-size: 2rem;
+    }
+
+    .header-bg p {
+        font-size: 1.25rem;
+    }
+
+    #satisfacao h2 {
+        font-size: 2rem;
+    }
+
+    #satisfactionForm .form-control {
+        width: 100%;
+    }
+}
+
+
+.star-rating input[type="radio"]:checked + label {
+    color: #f39c12;
+}
+
+.star-rating label {
+    transition: transform 0.2s;
+}
+
+.star-rating label:hover {
+    transform: scale(1.1);
+}
+
+.card img {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.card-body {
+    padding: 1rem 1.5rem;
+}
+
+.card-title {
+    margin-bottom: 0.75rem;
+}
+
+.card-text {
+    margin-bottom: 1.25rem;
+}
+.star-rating {
+    direction: rtl;
+    display: inline-flex;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 2em;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+    color: #f7bc0c;
+}
+
+.star-rating input[type="radio"]:checked + label:hover,
+.star-rating label:hover ~ input[type="radio"]:checked ~ label,
+.star-rating label:hover ~ label {
+    color: #f7bc0c;
+}

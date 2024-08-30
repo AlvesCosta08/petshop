@@ -20,4 +20,9 @@ public class LoginController {
         }
         return "login";
     }
+
+    @GetMapping("/logout")
+    public String logoutPage() {
+        return "logout"; // Return the name of the view for the logout page
+    }
 }

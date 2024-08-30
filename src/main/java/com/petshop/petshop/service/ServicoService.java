@@ -30,7 +30,7 @@ public class ServicoService {
         if (!repository.existsById(id)) {
             return Optional.empty();
         }
-        servico.setId(id); // Garantindo que o ID seja preservado
+        servico.setId(id);
         Servico updatedServico = repository.save(servico);
         return Optional.of(updatedServico);
     }

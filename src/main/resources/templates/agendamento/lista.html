@@ -3,9 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Lista de Agendamentos</title>
+	<title>Listar</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/header_home.css}">
 </head>
 <body>
 <header class="header">
@@ -25,28 +26,28 @@
 	</nav>
 </header>
 <div class="container-fluid mt-4">
-	<a class="nav-link" th:href="@{/agendamentos/cadastrar}"><i class="fas fa-plus"></i> <span> Agendamento</span></a>
+	<a class="btn btn-primary mb-3" th:href="@{/agendamentos/cadastrar}"><i class="fa-solid fa-square-plus"></i><span>&nbsp;
+ Agendamento</span></a>
 	<form action="#" th:action="@{/agendamentos/listarPorNome}" method="get" class="form-inline mb-3">
 		<input type="text" name="clienteNome" placeholder="Buscar por Cliente" class="form-control mr-2" />
 		<button type="submit" class="btn btn-primary">Buscar</button>
 	</form>
+	<br>
 
 	<div class="d-block d-md-none">
-		<!-- Exibição em lista para dispositivos móveis -->
 		<ul class="list-group">
-			<tr th:each="agendamento : ${agendamentos}">
-				<li class="list-group-item">
-					<strong>ID:</strong> <span th:text="${agendamento.id}"></span><br>
-					<strong>Data:</strong> <span th:text="${agendamento.dataHora}"></span><br>
-					<strong>Cliente:</strong> <span th:text="${agendamento.cliente.nome}"></span><br>
-					<strong>Pet:</strong> <span th:text="${agendamento.pet.nome}"></span><br>
-					<strong>Serviço:</strong> <span th:text="${agendamento.servico.nome}"></span><br>
-					<a th:href="@{/agendamentos/editar/{id}(id=${agendamento.id})}" class="btn btn-warning btn-sm">Editar</a>
-					<a th:href="@{/agendamentos/excluir/{id}(id=${agendamento.id})}" class="btn btn-danger btn-sm">Deletar</a>
-				</li>
-			</tr>
+			<li th:each="agendamento : ${agendamentos}" class="list-group-item">
+				<strong>ID:</strong> <span th:text="${agendamento.id}"></span><br>
+				<strong>Data:</strong> <span th:text="${agendamento.dataHora}"></span><br>
+				<strong>Cliente:</strong> <span th:text="${agendamento.cliente.nome}"></span><br>
+				<strong>Pet:</strong> <span th:text="${agendamento.pet.nome}"></span><br>
+				<strong>Serviço:</strong> <span th:text="${agendamento.servico.nome}"></span><br>
+				<a th:href="@{/agendamentos/editar/{id}(id=${agendamento.id})}" class="btn btn-warning btn-sm">Editar</a>
+				<a th:href="@{/agendamentos/excluir/{id}(id=${agendamento.id})}" class="btn btn-danger btn-sm">Deletar</a>
+			</li>
 		</ul>
 	</div>
+
 
 	<table class="table table-bordered d-none d-md-table">
 		<thead>
@@ -62,7 +63,7 @@
 		<tbody>
 		<tr th:each="agendamento : ${agendamentos}">
 			<td th:text="${agendamento.id}"></td>
-			<td th:text="${agendamento.dataHora}"></td>
+			<td th:text="${#temporals.format(agendamento.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
 			<td th:text="${agendamento.cliente.nome}"></td>
 			<td th:text="${agendamento.pet.nome}"></td>
 			<td th:text="${agendamento.servico.nome}"></td>
@@ -79,5 +80,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
 
 

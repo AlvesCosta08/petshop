@@ -7,49 +7,36 @@ document.addEventListener("DOMContentLoaded", function() {
         form.addEventListener('submit', handleFormSubmit);
     }
 
-    // Função para lidar com o envio do formulário
     function handleFormSubmit(event) {
-        event.preventDefault(); // Previne o envio padrão do formulário
+        event.preventDefault();
 
-        // Coleta os dados do formulário
         const rating = document.querySelector('input[name="rating"]:checked');
         const email = document.getElementById('email').value;
 
         if (rating && email) {
-            // Armazena os dados no localStorage
             saveFeedback(rating.value, email);
-
-            // Exibe uma mensagem de confirmação
             alert('Obrigado pela sua avaliação!');
-
-            // Atualiza o gráfico
             updateChart();
-
-            // Limpa o formulário
             form.reset();
-
-            // Limpa o localStorage após o envio (opcional)
-            // clearStorage();
-        } else {
-            alert('Por favor, selecione uma avaliação e insira seu e-mail.');
         }
     }
 
-    // Função para salvar feedback no localStorage
     function saveFeedback(rating, email) {
         const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
         feedbacks.push({ rating, email });
         localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
     }
 
-    // Função para atualizar o gráfico
     function updateChart() {
         const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
 
-        const ratings = feedbacks.reduce((acc, feedback) => {
-            acc[feedback.rating - 1]++;
-            return acc;
-        }, [0, 0, 0, 0, 0]);
+        const ratings = [0, 0, 0, 0, 0];
+        feedbacks.forEach(feedback => {
+            const ratingIndex = feedback.rating - 1;
+            if (ratingIndex >= 0 && ratingIndex < 5) {
+                ratings[ratingIndex]++;
+            }
+        });
 
         const data = {
             labels: ['1 Estrela', '2 Estrelas', '3 Estrelas', '4 Estrelas', '5 Estrelas'],
@@ -57,11 +44,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 label: 'Quantidade de Avaliações',
                 data: ratings,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)'
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -70,42 +57,131 @@ document.addEventListener("DOMContentLoaded", function() {
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)'
                 ],
-                borderWidth: 1
+                borderWidth: 2,
+                borderRadius: 5,
+                borderSkipped: false,
+                shadowOffsetX: 3,
+                shadowOffsetY: 3,
+                shadowBlur: 5,
+                shadowColor: 'rgba(0, 0, 0, 0.3)',
             }]
         };
 
-        // Destrói o gráfico se já existir
+        const options = {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(200, 200, 200, 0.2)',
+                    },
+                    ticks: {
+                        color: '#333',
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(200, 200, 200, 0.2)',
+                    },
+                    ticks: {
+                        color: '#333',
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#333',
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeInOutQuart'
+            }
+        };
+
         if (satisfactionChart) {
             satisfactionChart.destroy();
         }
 
-        // Cria um novo gráfico
         satisfactionChart = new Chart(ctx, {
             type: 'bar',
             data: data,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+            options: options,
+            plugins: [{
+                beforeDraw: (chart) => {
+                    const ctx = chart.ctx;
+                    ctx.save();
+                    ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+                    ctx.shadowBlur = 10;
+                    ctx.shadowOffsetX = 3;
+                    ctx.shadowOffsetY = 3;
+                    ctx.restore();
                 }
-            }
+            }]
         });
     }
 
-    // Função para limpar o localStorage (opcional)
     function clearStorage() {
-        localStorage.clear(); // Limpa todos os dados do localStorage
+        localStorage.clear();
     }
 
-    // Inicializa o gráfico ao carregar a página
+    clearStorage();
     updateChart();
 });
 
 
 
+ document.addEventListener('DOMContentLoaded', (event) => {
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+        const alert = (message, type) => {
+            // Remove any existing alerts
+            alertPlaceholder.innerHTML = '';
+
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('');
+
+            alertPlaceholder.append(wrapper);
+        };
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Produto adicionado ao carrinho!', 'success');
+            });
+        });
+    });
+
+  document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const alertContainer = document.getElementById('alertContainer');
 
 
+            while (alertContainer.firstChild) {
+                alertContainer.removeChild(alertContainer.firstChild);
+            }
 
 
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success alert-dismissible fade show';
+            alert.role = 'alert';
+            alert.innerHTML = `
+                Sua mensagem foi enviada com sucesso
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
 
+            alertContainer.appendChild(alert);
+
+
+            this.reset();
+        });

@@ -3,10 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Lista de Produtos</title>
+	<title>Listar</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/header_home.css}">
 </head>
 <body>
 <header class="header">
@@ -27,8 +28,19 @@
 </header>
 <div class="container-fluid mt-5">
 	<h1>Lista de Produtos</h1>
-	<a th:href="@{/produtos/cadastrar}" class="nav-link">
-		<i class="oi oi-plus"></i> <span>Add Produto</span>
+	<form class="mb-4" method="get" th:action="@{/produtos/listar}">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="Buscar por nome" name="nome" th:value="${param.nome}">
+			<div class="input-group-append">
+				<button class="btn btn-primary" type="submit">
+					<i class="fa-solid fa-search"></i> Buscar
+				</button>
+			</div>
+		</div>
+	</form>
+	<a th:href="@{/produtos/cadastrar}" class="btn btn-primary mb-3" >
+		<i class="fa-solid fa-square-plus"></i> <span>&nbsp;
+Produto</span>
 	</a>
 	<div class="table-responsive">
 		<table class="table table-bordered d-none d-md-table">
@@ -74,7 +86,6 @@
 		</div>
 	</div>
 
-	<!-- Paginação -->
 	<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
 			<li class="page-item" th:classappend="${produtosPage.hasPrevious()} ? 'enabled' : 'disabled'">

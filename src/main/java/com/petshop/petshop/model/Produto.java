@@ -30,18 +30,21 @@ public class Produto {
     @NotNull(message = "A quantidade do produto é obrigatória.")
     @Min(value = 0, message = "A quantidade do produto não pode ser negativa.")
     private Integer quantidade;
-    private String foto; // Adicionado campo para armazenar o nome do arquivo
+    private String foto;
+
+    private String qrcode;
 
     public Produto() {
     }
 
-    public Produto(Long id, String nome, String descricao, Double preco, Integer quantidade, String foto) {
+    public Produto(Long id, String nome, String descricao, Double preco, Integer quantidade, String foto,String qrcode) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.quantidade = quantidade;
         this.foto = foto;
+        this.qrcode = qrcode;
     }
 
     public Long getId() {
@@ -90,6 +93,14 @@ public class Produto {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public String getQrcode() {
+        return qrcode;
+    }
+
+    public void setQrcode(String qrcode) {
+        this.qrcode = qrcode;
     }
 }
 
