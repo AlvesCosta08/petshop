@@ -1,20 +1,29 @@
+# Usando a imagem base do Ubuntu
 FROM ubuntu:latest AS build
 
-
+# Atualizando a lista de pacotes
 RUN apt-get update
+
+# Instalando o JDK 17
 RUN apt-get install openjdk-17-jdk -y
+
+# Copiando o código-fonte para a imagem
 COPY . .
 
-RUN apt-et install maven -y
+# Instalando o Maven
+RUN apt-get install maven -y
+
+# Construindo o projeto
 RUN mvn clean install
-RUN apt-get update && apt-get install maven -y
 
-
+# Usando a imagem base do OpenJDK slim para o runtime
 FROM openjdk:17-jdk-slim
 
+# Expondo a porta 8080
 EXPOSE 8080
 
+# Copiando o JAR gerado na etapa de build para a imagem final
 COPY --from=build /target/petshop-0.0.1-SNAPSHOT.jar app.jar
 
-
-ENTRYPOINT ["java","-jar","app.jar"]
+# Definindo o comando de entrada para executar o JAR
+ENTRYPOINT ["java", "-jar", "app.jar"]
