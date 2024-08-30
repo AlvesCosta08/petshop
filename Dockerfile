@@ -4,8 +4,8 @@ FROM ubuntu:latest AS build
 # Atualizando a lista de pacotes
 RUN apt-get update
 
-# Instalando o JDK 17
-RUN apt-get install openjdk-17-jdk -y
+# Instalando o JDK 22
+RUN apt-get install openjdk-22-jdk -y
 
 # Copiando o código-fonte para a imagem
 COPY . .
@@ -16,8 +16,8 @@ RUN apt-get install maven -y
 # Construindo o projeto
 RUN mvn clean install
 
-# Usando a imagem base do OpenJDK slim para o runtime
-FROM openjdk:17-jdk-slim
+# Usando a imagem base do OpenJDK 22 slim para o runtime
+FROM openjdk:22-jdk-slim
 
 # Expondo a porta 8080
 EXPOSE 8080
@@ -27,3 +27,4 @@ COPY --from=build /target/petshop-0.0.1-SNAPSHOT.jar app.jar
 
 # Definindo o comando de entrada para executar o JAR
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
